@@ -1,0 +1,14 @@
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\bin\Debug\ChatWeaverApp.exe.config
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\bin\Debug\ChatWeaverApp.exe
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\bin\Debug\ChatWeaverApp.pdb
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.csprojAssemblyReference.cache
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.Properties.Resources.resources
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.csproj.GenerateResource.cache
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.csproj.CoreCompileInputs.cache
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.exe
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.pdb
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.FormMain.resources
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.FormMainControl.resources
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.DialogForms.DialogSimple.resources
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.TabHome.FormHomeMain.resources
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.TabHome.FormManageSayUnit.resources
