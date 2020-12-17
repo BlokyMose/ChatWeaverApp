@@ -19,7 +19,7 @@ namespace ChatWeaverApp
         public string uiControl;
         public bool linkedToPub;
 
-        public List<string> enumDataTypes;
+        public List<string> enumDataTypes = new List<string>();
 
         public ParameterData(
             string name,
@@ -44,11 +44,28 @@ namespace ChatWeaverApp
             )
         {
             this.name = name;
-            this.dataType = "enum";
+            this.dataType = "Enum";
             this.defaultValue = defaultValue;
             this.uiControl = "Combo Box";
             this.linkedToPub = false;
             this.enumDataTypes = enumDataType;
+        }
+
+        public ParameterData(ParameterData copyParam)
+        {
+            this.name = copyParam.name;
+            this.dataType = copyParam.dataType;
+            this.defaultValue = copyParam.defaultValue;
+            this.uiControl = copyParam.uiControl;
+            this.linkedToPub = copyParam.linkedToPub;
+            this.enumDataTypes = new List<string>();
+            if(copyParam.dataType == "Enum")
+            {
+                foreach (string item in copyParam.enumDataTypes)
+                {
+                    this.enumDataTypes.Add(item);
+                }
+            }
         }
     }
 

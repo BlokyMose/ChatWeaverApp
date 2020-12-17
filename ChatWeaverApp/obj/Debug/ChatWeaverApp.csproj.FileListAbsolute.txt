@@ -12,3 +12,4 @@ D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverA
 D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.DialogForms.DialogSimple.resources
 D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.TabHome.FormHomeMain.resources
 D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.TabHome.FormManageSayUnit.resources
+D:\MC Visual Studio\ChatWeaver\ChatWeaverApp\ChatWeaverApp\obj\Debug\ChatWeaverApp.DialogForms.ContextSimple.resources

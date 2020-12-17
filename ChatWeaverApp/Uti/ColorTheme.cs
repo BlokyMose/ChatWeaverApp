@@ -32,6 +32,9 @@ namespace ChatWeaverApp.Uti
         /// <summary> Subtitles, control bar menus : 100 </summary>
         public static Color fontDarkDim = Color.FromArgb(100, 100, 100);
 
+        /// <summary> Subtitles, control bar menus : 100 </summary>
+        public static Color fontDarkAsh = Color.FromArgb(150, 150, 150);
+
         /// <summary> Subtle icons : 200 </summary>
         public static Color fontAsh = Color.FromArgb(200, 200, 200);
 
@@ -53,6 +56,12 @@ namespace ChatWeaverApp.Uti
 
         public static Color red = Color.LightCoral;
         public static Color redDark = Color.Tomato;
+
+        public static Color pub = Color.Gold;
+        public static Color pubDark = Color.Goldenrod;
+
+        public static Color more = Color.Moccasin;
+        public static Color moreDark = Color.Orange;
 
         #endregion
     }

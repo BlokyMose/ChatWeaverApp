@@ -73,7 +73,7 @@ namespace ChatWeaverApp.Uti
             but.Size = !size.IsEmpty ? size : new Size(40, 40);
             but.Margin = new Padding(0, 0, 0, 0);
             but.TextAlign = ContentAlignment.MiddleCenter;
-            but.ForeColor = Uti.ColorTheme.fontAsh;
+            but.ForeColor = Uti.ColorTheme.fontDarkDim;
             but.BackColor = backColor;
             but.FlatStyle = FlatStyle.Flat;
             but.FlatAppearance.BorderSize = 0;
@@ -120,6 +120,9 @@ namespace ChatWeaverApp.Uti
             cb.Size = new Size(120, 30);
             cb.Location = new Point(10, 5);
             cb.Margin = new Padding(0, 0, 0, 0);
+
+            cb.Enter += (sender, e) => { cb.BackColor = backColor; };
+            cb.MouseClick += (sender, e) => { cb.BackColor = backColor; };
 
             return cb;
         }

@@ -63,6 +63,12 @@
   <ItemGroup>
     <Compile Include="ChatWeaverSystem\Master.cs" />
     <Compile Include="ChatWeaverSystem\System.cs" />
+    <Compile Include="DialogForms\ContextSimple.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogForms\ContextSimple.Designer.cs">
+      <DependentUpon>ContextSimple.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogForms\DialogSimple.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +107,9 @@
     <Compile Include="Uti\MakeComponents.cs" />
     <Compile Include="Uti\MakeShapes.cs" />
     <Compile Include="Uti\Methods.cs" />
+    <EmbeddedResource Include="DialogForms\ContextSimple.resx">
+      <DependentUpon>ContextSimple.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DialogForms\DialogSimple.resx">
       <DependentUpon>DialogSimple.cs</DependentUpon>
     </EmbeddedResource>

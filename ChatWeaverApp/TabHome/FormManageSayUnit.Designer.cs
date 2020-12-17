@@ -31,7 +31,7 @@
             this.butNewParamAdd = new System.Windows.Forms.Button();
             this.flowParamsContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.labNewParamName = new System.Windows.Forms.Label();
-            this.labAddNewParam = new System.Windows.Forms.Label();
+            this.labTitleAddNewParam = new System.Windows.Forms.Label();
             this.labNewParamDataType = new System.Windows.Forms.Label();
             this.cbNewParamDataType = new System.Windows.Forms.ComboBox();
             this.labNewParamDefaultValue = new System.Windows.Forms.Label();
@@ -46,29 +46,50 @@
             this.flowEnum = new System.Windows.Forms.FlowLayoutPanel();
             this.labEnumDataTypes = new System.Windows.Forms.Label();
             this.flowEnumDataTypes = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labTitleParams = new System.Windows.Forms.Label();
             this.panParamsContainer = new System.Windows.Forms.Panel();
             this.panelScrollbarContainer = new System.Windows.Forms.Panel();
             this.labScrollbar = new System.Windows.Forms.Label();
-            this.labelTest = new System.Windows.Forms.Label();
-            this.flowTempMain = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowTempLeft = new System.Windows.Forms.FlowLayoutPanel();
-            this.cbTempName = new System.Windows.Forms.ComboBox();
-            this.flowTempRight = new System.Windows.Forms.FlowLayoutPanel();
+            this.labManageTemplate = new System.Windows.Forms.Label();
             this.flowTempContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.panTempColor = new System.Windows.Forms.Panel();
-            this.butTempMore = new System.Windows.Forms.Button();
-            this.panTempTool = new System.Windows.Forms.Panel();
-            this.labManageTemplate = new System.Windows.Forms.Label();
-            this.labTempName = new System.Windows.Forms.Label();
+            this.flowTempMain = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowTempLeft = new System.Windows.Forms.FlowLayoutPanel();
             this.flowTempName = new System.Windows.Forms.FlowLayoutPanel();
+            this.labTempName = new System.Windows.Forms.Label();
+            this.cbTempName = new System.Windows.Forms.ComboBox();
             this.flowTempClass = new System.Windows.Forms.FlowLayoutPanel();
-            this.cbTempClass = new System.Windows.Forms.ComboBox();
             this.labTempClass = new System.Windows.Forms.Label();
-            this.labTempDisplayName = new System.Windows.Forms.Label();
-            this.butTempCollapse = new System.Windows.Forms.Button();
+            this.cbTempClass = new System.Windows.Forms.ComboBox();
             this.picTemp = new System.Windows.Forms.PictureBox();
+            this.labTempDisplayName = new System.Windows.Forms.Label();
+            this.flowTempRight = new System.Windows.Forms.FlowLayoutPanel();
+            this.panTempTool = new System.Windows.Forms.Panel();
+            this.butTempCollapse = new System.Windows.Forms.Button();
+            this.butTempMore = new System.Windows.Forms.Button();
             this.flowTempBottom = new System.Windows.Forms.FlowLayoutPanel();
+            this.labelTest = new System.Windows.Forms.Label();
+            this.flowManageTempLeft = new System.Windows.Forms.FlowLayoutPanel();
+            this.labManageTempLeft = new System.Windows.Forms.Label();
+            this.cbManageTempLeft = new System.Windows.Forms.ComboBox();
+            this.labManageTempRight = new System.Windows.Forms.Label();
+            this.cbManageTempRight = new System.Windows.Forms.ComboBox();
+            this.flowManageTempBottomContainer = new System.Windows.Forms.FlowLayoutPanel();
+            this.labMangeTempBottom = new System.Windows.Forms.Label();
+            this.flowManageTempBottom = new System.Windows.Forms.FlowLayoutPanel();
+            this.butManageTempAddRight = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.comboBox7 = new System.Windows.Forms.ComboBox();
+            this.comboBox8 = new System.Windows.Forms.ComboBox();
+            this.butManageTempAddBottom = new System.Windows.Forms.Button();
+            this.panTitleNewParam = new System.Windows.Forms.Panel();
+            this.panTitleParams = new System.Windows.Forms.Panel();
+            this.panTitleTemplate = new System.Windows.Forms.Panel();
             this.flowNewParam.SuspendLayout();
             this.flowNewParamName.SuspendLayout();
             this.flowNewParamDefaultValue.SuspendLayout();
@@ -76,13 +97,19 @@
             this.flowEnum.SuspendLayout();
             this.panParamsContainer.SuspendLayout();
             this.panelScrollbarContainer.SuspendLayout();
+            this.flowTempContainer.SuspendLayout();
             this.flowTempMain.SuspendLayout();
             this.flowTempLeft.SuspendLayout();
-            this.flowTempContainer.SuspendLayout();
-            this.panTempTool.SuspendLayout();
             this.flowTempName.SuspendLayout();
             this.flowTempClass.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picTemp)).BeginInit();
+            this.panTempTool.SuspendLayout();
+            this.flowManageTempLeft.SuspendLayout();
+            this.flowManageTempBottomContainer.SuspendLayout();
+            this.flowManageTempBottom.SuspendLayout();
+            this.panTitleNewParam.SuspendLayout();
+            this.panTitleParams.SuspendLayout();
+            this.panTitleTemplate.SuspendLayout();
             this.SuspendLayout();
             // 
             // butNewParamAdd
@@ -124,17 +151,17 @@
             this.labNewParamName.Text = "Name:";
             this.labNewParamName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // labAddNewParam
+            // labTitleAddNewParam
             // 
-            this.labAddNewParam.AutoSize = true;
-            this.labAddNewParam.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labAddNewParam.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.labAddNewParam.Location = new System.Drawing.Point(0, 134);
-            this.labAddNewParam.Margin = new System.Windows.Forms.Padding(0, 0, 0, 25);
-            this.labAddNewParam.Name = "labAddNewParam";
-            this.labAddNewParam.Size = new System.Drawing.Size(240, 24);
-            this.labAddNewParam.TabIndex = 4;
-            this.labAddNewParam.Text = "Add a new parameter";
+            this.labTitleAddNewParam.AutoSize = true;
+            this.labTitleAddNewParam.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labTitleAddNewParam.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.labTitleAddNewParam.Location = new System.Drawing.Point(0, 20);
+            this.labTitleAddNewParam.Margin = new System.Windows.Forms.Padding(0);
+            this.labTitleAddNewParam.Name = "labTitleAddNewParam";
+            this.labTitleAddNewParam.Size = new System.Drawing.Size(240, 24);
+            this.labTitleAddNewParam.TabIndex = 4;
+            this.labTitleAddNewParam.Text = "Add a new parameter";
             // 
             // labNewParamDataType
             // 
@@ -186,7 +213,7 @@
             this.flowNewParam.Controls.Add(this.flowNewParamDefaultValue);
             this.flowNewParam.Controls.Add(this.cbNewParamDefaultValue);
             this.flowNewParam.Controls.Add(this.butNewParamAdd);
-            this.flowNewParam.Location = new System.Drawing.Point(0, 183);
+            this.flowNewParam.Location = new System.Drawing.Point(0, 179);
             this.flowNewParam.Margin = new System.Windows.Forms.Padding(0);
             this.flowNewParam.Name = "flowNewParam";
             this.flowNewParam.Size = new System.Drawing.Size(950, 32);
@@ -255,23 +282,25 @@
             // 
             // flowMain
             // 
-            this.flowMain.AutoScroll = true;
+            this.flowMain.AutoSize = true;
             this.flowMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.flowMain.Controls.Add(this.labManageSayUnit);
-            this.flowMain.Controls.Add(this.labAddNewParam);
+            this.flowMain.Controls.Add(this.panTitleNewParam);
             this.flowMain.Controls.Add(this.flowNewParam);
             this.flowMain.Controls.Add(this.flowEnum);
-            this.flowMain.Controls.Add(this.label1);
+            this.flowMain.Controls.Add(this.panTitleParams);
             this.flowMain.Controls.Add(this.panParamsContainer);
-            this.flowMain.Controls.Add(this.labManageTemplate);
+            this.flowMain.Controls.Add(this.panTitleTemplate);
             this.flowMain.Controls.Add(this.flowTempContainer);
+            this.flowMain.Controls.Add(this.flowManageTempLeft);
+            this.flowMain.Controls.Add(this.flowManageTempBottomContainer);
             this.flowMain.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowMain.ForeColor = System.Drawing.SystemColors.ControlText;
             this.flowMain.Location = new System.Drawing.Point(0, 0);
             this.flowMain.Margin = new System.Windows.Forms.Padding(0);
             this.flowMain.Name = "flowMain";
             this.flowMain.Padding = new System.Windows.Forms.Padding(0, 50, 20, 0);
-            this.flowMain.Size = new System.Drawing.Size(950, 974);
+            this.flowMain.Size = new System.Drawing.Size(970, 1000);
             this.flowMain.TabIndex = 11;
             // 
             // labManageSayUnit
@@ -280,7 +309,7 @@
             this.labManageSayUnit.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labManageSayUnit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.labManageSayUnit.Location = new System.Drawing.Point(0, 50);
-            this.labManageSayUnit.Margin = new System.Windows.Forms.Padding(0, 0, 0, 45);
+            this.labManageSayUnit.Margin = new System.Windows.Forms.Padding(0, 0, 0, 30);
             this.labManageSayUnit.Name = "labManageSayUnit";
             this.labManageSayUnit.Size = new System.Drawing.Size(284, 39);
             this.labManageSayUnit.TabIndex = 11;
@@ -290,7 +319,7 @@
             // 
             this.flowEnum.Controls.Add(this.labEnumDataTypes);
             this.flowEnum.Controls.Add(this.flowEnumDataTypes);
-            this.flowEnum.Location = new System.Drawing.Point(0, 215);
+            this.flowEnum.Location = new System.Drawing.Point(0, 211);
             this.flowEnum.Margin = new System.Windows.Forms.Padding(0);
             this.flowEnum.Name = "flowEnum";
             this.flowEnum.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
@@ -318,24 +347,24 @@
             this.flowEnumDataTypes.Size = new System.Drawing.Size(767, 27);
             this.flowEnumDataTypes.TabIndex = 5;
             // 
-            // label1
+            // labTitleParams
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.label1.Location = new System.Drawing.Point(0, 280);
-            this.label1.Margin = new System.Windows.Forms.Padding(0, 25, 0, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(211, 24);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Say unit parameters";
+            this.labTitleParams.AutoSize = true;
+            this.labTitleParams.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labTitleParams.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.labTitleParams.Location = new System.Drawing.Point(0, 20);
+            this.labTitleParams.Margin = new System.Windows.Forms.Padding(0, 25, 0, 25);
+            this.labTitleParams.Name = "labTitleParams";
+            this.labTitleParams.Size = new System.Drawing.Size(211, 24);
+            this.labTitleParams.TabIndex = 12;
+            this.labTitleParams.Text = "Say unit parameters";
             // 
             // panParamsContainer
             // 
             this.panParamsContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.panParamsContainer.Controls.Add(this.panelScrollbarContainer);
             this.panParamsContainer.Controls.Add(this.flowParamsContainer);
-            this.panParamsContainer.Location = new System.Drawing.Point(0, 329);
+            this.panParamsContainer.Location = new System.Drawing.Point(0, 311);
             this.panParamsContainer.Margin = new System.Windows.Forms.Padding(0);
             this.panParamsContainer.Name = "panParamsContainer";
             this.panParamsContainer.Size = new System.Drawing.Size(950, 250);
@@ -348,7 +377,7 @@
             this.panelScrollbarContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
             this.panelScrollbarContainer.Controls.Add(this.labScrollbar);
             this.panelScrollbarContainer.Location = new System.Drawing.Point(925, 0);
-            this.panelScrollbarContainer.Margin = new System.Windows.Forms.Padding(2);
+            this.panelScrollbarContainer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelScrollbarContainer.Name = "panelScrollbarContainer";
             this.panelScrollbarContainer.Size = new System.Drawing.Size(25, 250);
             this.panelScrollbarContainer.TabIndex = 43;
@@ -370,14 +399,37 @@
             this.labScrollbar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ScrollMouseMove);
             this.labScrollbar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ScrolllMouseUp);
             // 
-            // labelTest
+            // labManageTemplate
             // 
-            this.labelTest.AutoSize = true;
-            this.labelTest.Location = new System.Drawing.Point(953, 227);
-            this.labelTest.Name = "labelTest";
-            this.labelTest.Size = new System.Drawing.Size(35, 13);
-            this.labelTest.TabIndex = 12;
-            this.labelTest.Text = "label2";
+            this.labManageTemplate.AutoSize = true;
+            this.labManageTemplate.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labManageTemplate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.labManageTemplate.Location = new System.Drawing.Point(0, 20);
+            this.labManageTemplate.Margin = new System.Windows.Forms.Padding(0, 35, 0, 25);
+            this.labManageTemplate.Name = "labManageTemplate";
+            this.labManageTemplate.Size = new System.Drawing.Size(201, 24);
+            this.labManageTemplate.TabIndex = 17;
+            this.labManageTemplate.Text = "Manage Template";
+            // 
+            // flowTempContainer
+            // 
+            this.flowTempContainer.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.flowTempContainer.Controls.Add(this.panTempColor);
+            this.flowTempContainer.Controls.Add(this.flowTempMain);
+            this.flowTempContainer.Location = new System.Drawing.Point(0, 621);
+            this.flowTempContainer.Margin = new System.Windows.Forms.Padding(0);
+            this.flowTempContainer.Name = "flowTempContainer";
+            this.flowTempContainer.Size = new System.Drawing.Size(910, 200);
+            this.flowTempContainer.TabIndex = 16;
+            // 
+            // panTempColor
+            // 
+            this.panTempColor.BackColor = System.Drawing.Color.Coral;
+            this.panTempColor.Location = new System.Drawing.Point(0, 0);
+            this.panTempColor.Margin = new System.Windows.Forms.Padding(0);
+            this.panTempColor.Name = "panTempColor";
+            this.panTempColor.Size = new System.Drawing.Size(10, 200);
+            this.panTempColor.TabIndex = 0;
             // 
             // flowTempMain
             // 
@@ -406,6 +458,26 @@
             this.flowTempLeft.Size = new System.Drawing.Size(180, 160);
             this.flowTempLeft.TabIndex = 1;
             // 
+            // flowTempName
+            // 
+            this.flowTempName.Controls.Add(this.labTempName);
+            this.flowTempName.Controls.Add(this.cbTempName);
+            this.flowTempName.Location = new System.Drawing.Point(5, 20);
+            this.flowTempName.Margin = new System.Windows.Forms.Padding(0);
+            this.flowTempName.Name = "flowTempName";
+            this.flowTempName.Size = new System.Drawing.Size(170, 0);
+            this.flowTempName.TabIndex = 2;
+            // 
+            // labTempName
+            // 
+            this.labTempName.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labTempName.Location = new System.Drawing.Point(3, 2);
+            this.labTempName.Margin = new System.Windows.Forms.Padding(3, 2, 0, 0);
+            this.labTempName.Name = "labTempName";
+            this.labTempName.Size = new System.Drawing.Size(50, 23);
+            this.labTempName.TabIndex = 1;
+            this.labTempName.Text = "Name:";
+            // 
             // cbTempName
             // 
             this.cbTempName.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -420,96 +492,6 @@
             this.cbTempName.TabIndex = 0;
             this.cbTempName.Text = "Marcus";
             // 
-            // flowTempRight
-            // 
-            this.flowTempRight.Location = new System.Drawing.Point(180, 0);
-            this.flowTempRight.Margin = new System.Windows.Forms.Padding(0);
-            this.flowTempRight.Name = "flowTempRight";
-            this.flowTempRight.Padding = new System.Windows.Forms.Padding(10, 25, 10, 10);
-            this.flowTempRight.Size = new System.Drawing.Size(700, 160);
-            this.flowTempRight.TabIndex = 2;
-            // 
-            // flowTempContainer
-            // 
-            this.flowTempContainer.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.flowTempContainer.Controls.Add(this.panTempColor);
-            this.flowTempContainer.Controls.Add(this.flowTempMain);
-            this.flowTempContainer.Location = new System.Drawing.Point(0, 663);
-            this.flowTempContainer.Margin = new System.Windows.Forms.Padding(0);
-            this.flowTempContainer.Name = "flowTempContainer";
-            this.flowTempContainer.Size = new System.Drawing.Size(910, 200);
-            this.flowTempContainer.TabIndex = 16;
-            // 
-            // panTempColor
-            // 
-            this.panTempColor.BackColor = System.Drawing.Color.Coral;
-            this.panTempColor.Location = new System.Drawing.Point(0, 0);
-            this.panTempColor.Margin = new System.Windows.Forms.Padding(0);
-            this.panTempColor.Name = "panTempColor";
-            this.panTempColor.Size = new System.Drawing.Size(10, 200);
-            this.panTempColor.TabIndex = 0;
-            // 
-            // butTempMore
-            // 
-            this.butTempMore.BackColor = System.Drawing.Color.Transparent;
-            this.butTempMore.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.butTempMore.FlatAppearance.BorderSize = 0;
-            this.butTempMore.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Tomato;
-            this.butTempMore.FlatAppearance.MouseOverBackColor = System.Drawing.Color.OrangeRed;
-            this.butTempMore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.butTempMore.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.butTempMore.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
-            this.butTempMore.Location = new System.Drawing.Point(0, 0);
-            this.butTempMore.Margin = new System.Windows.Forms.Padding(0);
-            this.butTempMore.Name = "butTempMore";
-            this.butTempMore.Size = new System.Drawing.Size(20, 20);
-            this.butTempMore.TabIndex = 4;
-            this.butTempMore.Text = "⚙️";
-            this.butTempMore.UseVisualStyleBackColor = false;
-            // 
-            // panTempTool
-            // 
-            this.panTempTool.BackColor = System.Drawing.Color.Transparent;
-            this.panTempTool.Controls.Add(this.butTempCollapse);
-            this.panTempTool.Controls.Add(this.butTempMore);
-            this.panTempTool.Location = new System.Drawing.Point(880, 0);
-            this.panTempTool.Margin = new System.Windows.Forms.Padding(0);
-            this.panTempTool.Name = "panTempTool";
-            this.panTempTool.Size = new System.Drawing.Size(20, 160);
-            this.panTempTool.TabIndex = 5;
-            // 
-            // labManageTemplate
-            // 
-            this.labManageTemplate.AutoSize = true;
-            this.labManageTemplate.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labManageTemplate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.labManageTemplate.Location = new System.Drawing.Point(0, 614);
-            this.labManageTemplate.Margin = new System.Windows.Forms.Padding(0, 35, 0, 25);
-            this.labManageTemplate.Name = "labManageTemplate";
-            this.labManageTemplate.Size = new System.Drawing.Size(201, 24);
-            this.labManageTemplate.TabIndex = 17;
-            this.labManageTemplate.Text = "Manage Template";
-            // 
-            // labTempName
-            // 
-            this.labTempName.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labTempName.Location = new System.Drawing.Point(3, 2);
-            this.labTempName.Margin = new System.Windows.Forms.Padding(3, 2, 0, 0);
-            this.labTempName.Name = "labTempName";
-            this.labTempName.Size = new System.Drawing.Size(50, 23);
-            this.labTempName.TabIndex = 1;
-            this.labTempName.Text = "Name:";
-            // 
-            // flowTempName
-            // 
-            this.flowTempName.Controls.Add(this.labTempName);
-            this.flowTempName.Controls.Add(this.cbTempName);
-            this.flowTempName.Location = new System.Drawing.Point(5, 20);
-            this.flowTempName.Margin = new System.Windows.Forms.Padding(0);
-            this.flowTempName.Name = "flowTempName";
-            this.flowTempName.Size = new System.Drawing.Size(170, 0);
-            this.flowTempName.TabIndex = 2;
-            // 
             // flowTempClass
             // 
             this.flowTempClass.Controls.Add(this.labTempClass);
@@ -519,6 +501,16 @@
             this.flowTempClass.Name = "flowTempClass";
             this.flowTempClass.Size = new System.Drawing.Size(170, 0);
             this.flowTempClass.TabIndex = 3;
+            // 
+            // labTempClass
+            // 
+            this.labTempClass.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labTempClass.Location = new System.Drawing.Point(3, 2);
+            this.labTempClass.Margin = new System.Windows.Forms.Padding(3, 2, 0, 0);
+            this.labTempClass.Name = "labTempClass";
+            this.labTempClass.Size = new System.Drawing.Size(50, 23);
+            this.labTempClass.TabIndex = 2;
+            this.labTempClass.Text = "Class:";
             // 
             // cbTempClass
             // 
@@ -534,26 +526,47 @@
             this.cbTempClass.TabIndex = 0;
             this.cbTempClass.Text = "Protagonist";
             // 
-            // labTempClass
+            // picTemp
             // 
-            this.labTempClass.Font = new System.Drawing.Font("Segoe UI Emoji", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labTempClass.Location = new System.Drawing.Point(3, 2);
-            this.labTempClass.Margin = new System.Windows.Forms.Padding(3, 2, 0, 0);
-            this.labTempClass.Name = "labTempClass";
-            this.labTempClass.Size = new System.Drawing.Size(50, 23);
-            this.labTempClass.TabIndex = 2;
-            this.labTempClass.Text = "Class:";
+            this.picTemp.Image = global::ChatWeaverApp.Properties.Resources.raySmile_PNG;
+            this.picTemp.Location = new System.Drawing.Point(45, 20);
+            this.picTemp.Margin = new System.Windows.Forms.Padding(40, 0, 0, 0);
+            this.picTemp.Name = "picTemp";
+            this.picTemp.Size = new System.Drawing.Size(85, 85);
+            this.picTemp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picTemp.TabIndex = 0;
+            this.picTemp.TabStop = false;
             // 
             // labTempDisplayName
             // 
-            this.labTempDisplayName.Font = new System.Drawing.Font("Segoe UI Emoji", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labTempDisplayName.Font = new System.Drawing.Font("Futura Bk BT", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labTempDisplayName.Location = new System.Drawing.Point(5, 105);
             this.labTempDisplayName.Margin = new System.Windows.Forms.Padding(0);
             this.labTempDisplayName.Name = "labTempDisplayName";
             this.labTempDisplayName.Size = new System.Drawing.Size(170, 30);
             this.labTempDisplayName.TabIndex = 4;
-            this.labTempDisplayName.Text = "Marcus Ember";
+            this.labTempDisplayName.Text = "Sample Name";
             this.labTempDisplayName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // flowTempRight
+            // 
+            this.flowTempRight.Location = new System.Drawing.Point(180, 0);
+            this.flowTempRight.Margin = new System.Windows.Forms.Padding(0);
+            this.flowTempRight.Name = "flowTempRight";
+            this.flowTempRight.Padding = new System.Windows.Forms.Padding(10, 25, 10, 10);
+            this.flowTempRight.Size = new System.Drawing.Size(700, 160);
+            this.flowTempRight.TabIndex = 2;
+            // 
+            // panTempTool
+            // 
+            this.panTempTool.BackColor = System.Drawing.Color.Transparent;
+            this.panTempTool.Controls.Add(this.butTempCollapse);
+            this.panTempTool.Controls.Add(this.butTempMore);
+            this.panTempTool.Location = new System.Drawing.Point(880, 0);
+            this.panTempTool.Margin = new System.Windows.Forms.Padding(0);
+            this.panTempTool.Name = "panTempTool";
+            this.panTempTool.Size = new System.Drawing.Size(20, 160);
+            this.panTempTool.TabIndex = 5;
             // 
             // butTempCollapse
             // 
@@ -573,16 +586,23 @@
             this.butTempCollapse.Text = "◿";
             this.butTempCollapse.UseVisualStyleBackColor = false;
             // 
-            // picTemp
+            // butTempMore
             // 
-            this.picTemp.Image = global::ChatWeaverApp.Properties.Resources.raySmile_PNG;
-            this.picTemp.Location = new System.Drawing.Point(45, 20);
-            this.picTemp.Margin = new System.Windows.Forms.Padding(40, 0, 0, 0);
-            this.picTemp.Name = "picTemp";
-            this.picTemp.Size = new System.Drawing.Size(85, 85);
-            this.picTemp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picTemp.TabIndex = 0;
-            this.picTemp.TabStop = false;
+            this.butTempMore.BackColor = System.Drawing.Color.Transparent;
+            this.butTempMore.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.butTempMore.FlatAppearance.BorderSize = 0;
+            this.butTempMore.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Tomato;
+            this.butTempMore.FlatAppearance.MouseOverBackColor = System.Drawing.Color.OrangeRed;
+            this.butTempMore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butTempMore.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butTempMore.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.butTempMore.Location = new System.Drawing.Point(0, 0);
+            this.butTempMore.Margin = new System.Windows.Forms.Padding(0);
+            this.butTempMore.Name = "butTempMore";
+            this.butTempMore.Size = new System.Drawing.Size(20, 20);
+            this.butTempMore.TabIndex = 4;
+            this.butTempMore.Text = "⚙️";
+            this.butTempMore.UseVisualStyleBackColor = false;
             // 
             // flowTempBottom
             // 
@@ -593,19 +613,296 @@
             this.flowTempBottom.Size = new System.Drawing.Size(900, 40);
             this.flowTempBottom.TabIndex = 3;
             // 
+            // labelTest
+            // 
+            this.labelTest.AutoSize = true;
+            this.labelTest.Location = new System.Drawing.Point(953, 134);
+            this.labelTest.Name = "labelTest";
+            this.labelTest.Size = new System.Drawing.Size(35, 13);
+            this.labelTest.TabIndex = 12;
+            this.labelTest.Text = "label2";
+            // 
+            // flowManageTempLeft
+            // 
+            this.flowManageTempLeft.AutoScroll = true;
+            this.flowManageTempLeft.Controls.Add(this.labManageTempLeft);
+            this.flowManageTempLeft.Controls.Add(this.cbManageTempLeft);
+            this.flowManageTempLeft.Controls.Add(this.labManageTempRight);
+            this.flowManageTempLeft.Controls.Add(this.cbManageTempRight);
+            this.flowManageTempLeft.Controls.Add(this.butManageTempAddRight);
+            this.flowManageTempLeft.Font = new System.Drawing.Font("Segoe UI Emoji", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.flowManageTempLeft.Location = new System.Drawing.Point(0, 851);
+            this.flowManageTempLeft.Margin = new System.Windows.Forms.Padding(0, 30, 0, 0);
+            this.flowManageTempLeft.Name = "flowManageTempLeft";
+            this.flowManageTempLeft.Size = new System.Drawing.Size(910, 30);
+            this.flowManageTempLeft.TabIndex = 18;
+            // 
+            // labManageTempLeft
+            // 
+            this.labManageTempLeft.Location = new System.Drawing.Point(3, 0);
+            this.labManageTempLeft.Name = "labManageTempLeft";
+            this.labManageTempLeft.Size = new System.Drawing.Size(109, 30);
+            this.labManageTempLeft.TabIndex = 0;
+            this.labManageTempLeft.Text = "Left Panel: 🍻";
+            this.labManageTempLeft.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cbManageTempLeft
+            // 
+            this.cbManageTempLeft.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.cbManageTempLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbManageTempLeft.Font = new System.Drawing.Font("Segoe UI Emoji", 10F);
+            this.cbManageTempLeft.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.cbManageTempLeft.FormattingEnabled = true;
+            this.cbManageTempLeft.Location = new System.Drawing.Point(115, 2);
+            this.cbManageTempLeft.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.cbManageTempLeft.Name = "cbManageTempLeft";
+            this.cbManageTempLeft.Size = new System.Drawing.Size(105, 25);
+            this.cbManageTempLeft.TabIndex = 8;
+            // 
+            // labManageTempRight
+            // 
+            this.labManageTempRight.Location = new System.Drawing.Point(280, 0);
+            this.labManageTempRight.Margin = new System.Windows.Forms.Padding(60, 0, 3, 0);
+            this.labManageTempRight.Name = "labManageTempRight";
+            this.labManageTempRight.Size = new System.Drawing.Size(101, 30);
+            this.labManageTempRight.TabIndex = 9;
+            this.labManageTempRight.Text = "Right Panel:";
+            this.labManageTempRight.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cbManageTempRight
+            // 
+            this.cbManageTempRight.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.cbManageTempRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbManageTempRight.Font = new System.Drawing.Font("Segoe UI Emoji", 10F);
+            this.cbManageTempRight.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.cbManageTempRight.FormattingEnabled = true;
+            this.cbManageTempRight.Location = new System.Drawing.Point(384, 2);
+            this.cbManageTempRight.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.cbManageTempRight.Name = "cbManageTempRight";
+            this.cbManageTempRight.Size = new System.Drawing.Size(105, 25);
+            this.cbManageTempRight.TabIndex = 10;
+            // 
+            // flowManageTempBottomContainer
+            // 
+            this.flowManageTempBottomContainer.Controls.Add(this.labMangeTempBottom);
+            this.flowManageTempBottomContainer.Controls.Add(this.flowManageTempBottom);
+            this.flowManageTempBottomContainer.Font = new System.Drawing.Font("Segoe UI Emoji", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.flowManageTempBottomContainer.Location = new System.Drawing.Point(0, 891);
+            this.flowManageTempBottomContainer.Margin = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.flowManageTempBottomContainer.Name = "flowManageTempBottomContainer";
+            this.flowManageTempBottomContainer.Size = new System.Drawing.Size(910, 65);
+            this.flowManageTempBottomContainer.TabIndex = 19;
+            // 
+            // labMangeTempBottom
+            // 
+            this.labMangeTempBottom.Location = new System.Drawing.Point(3, 0);
+            this.labMangeTempBottom.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.labMangeTempBottom.Name = "labMangeTempBottom";
+            this.labMangeTempBottom.Size = new System.Drawing.Size(110, 30);
+            this.labMangeTempBottom.TabIndex = 0;
+            this.labMangeTempBottom.Text = "Bottom Panel:";
+            this.labMangeTempBottom.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // flowManageTempBottom
+            // 
+            this.flowManageTempBottom.AutoScroll = true;
+            this.flowManageTempBottom.Controls.Add(this.comboBox1);
+            this.flowManageTempBottom.Controls.Add(this.comboBox2);
+            this.flowManageTempBottom.Controls.Add(this.comboBox3);
+            this.flowManageTempBottom.Controls.Add(this.comboBox4);
+            this.flowManageTempBottom.Controls.Add(this.comboBox5);
+            this.flowManageTempBottom.Controls.Add(this.comboBox6);
+            this.flowManageTempBottom.Controls.Add(this.comboBox7);
+            this.flowManageTempBottom.Controls.Add(this.comboBox8);
+            this.flowManageTempBottom.Controls.Add(this.butManageTempAddBottom);
+            this.flowManageTempBottom.Font = new System.Drawing.Font("Segoe UI Emoji", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.flowManageTempBottom.Location = new System.Drawing.Point(113, 0);
+            this.flowManageTempBottom.Margin = new System.Windows.Forms.Padding(0);
+            this.flowManageTempBottom.Name = "flowManageTempBottom";
+            this.flowManageTempBottom.Size = new System.Drawing.Size(797, 65);
+            this.flowManageTempBottom.TabIndex = 19;
+            // 
+            // butManageTempAddRight
+            // 
+            this.butManageTempAddRight.BackColor = System.Drawing.Color.Gainsboro;
+            this.butManageTempAddRight.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.butManageTempAddRight.FlatAppearance.BorderSize = 0;
+            this.butManageTempAddRight.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Tomato;
+            this.butManageTempAddRight.FlatAppearance.MouseOverBackColor = System.Drawing.Color.OrangeRed;
+            this.butManageTempAddRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butManageTempAddRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butManageTempAddRight.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.butManageTempAddRight.Location = new System.Drawing.Point(499, 0);
+            this.butManageTempAddRight.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.butManageTempAddRight.Name = "butManageTempAddRight";
+            this.butManageTempAddRight.Size = new System.Drawing.Size(30, 30);
+            this.butManageTempAddRight.TabIndex = 11;
+            this.butManageTempAddRight.Text = "✚";
+            this.butManageTempAddRight.UseVisualStyleBackColor = false;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox1.Font = new System.Drawing.Font("Segoe UI Emoji", 10F);
+            this.comboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(0, 2);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(0, 2, 5, 3);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(105, 25);
+            this.comboBox1.TabIndex = 13;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox2.Font = new System.Drawing.Font("Segoe UI Emoji", 10F);
+            this.comboBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(110, 2);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(0, 2, 5, 3);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(105, 25);
+            this.comboBox2.TabIndex = 14;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox3.Font = new System.Drawing.Font("Segoe UI Emoji", 10F);
+            this.comboBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(220, 2);
+            this.comboBox3.Margin = new System.Windows.Forms.Padding(0, 2, 5, 0);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(105, 25);
+            this.comboBox3.TabIndex = 15;
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.comboBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox4.Font = new System.Drawing.Font("Segoe UI Emoji", 10F);
+            this.comboBox4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(330, 2);
+            this.comboBox4.Margin = new System.Windows.Forms.Padding(0, 2, 5, 0);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(105, 25);
+            this.comboBox4.TabIndex = 16;
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.comboBox5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox5.Font = new System.Drawing.Font("Segoe UI Emoji", 10F);
+            this.comboBox5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Location = new System.Drawing.Point(440, 2);
+            this.comboBox5.Margin = new System.Windows.Forms.Padding(0, 2, 5, 0);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(105, 25);
+            this.comboBox5.TabIndex = 17;
+            // 
+            // comboBox6
+            // 
+            this.comboBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.comboBox6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox6.Font = new System.Drawing.Font("Segoe UI Emoji", 10F);
+            this.comboBox6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.comboBox6.FormattingEnabled = true;
+            this.comboBox6.Location = new System.Drawing.Point(550, 2);
+            this.comboBox6.Margin = new System.Windows.Forms.Padding(0, 2, 5, 0);
+            this.comboBox6.Name = "comboBox6";
+            this.comboBox6.Size = new System.Drawing.Size(105, 25);
+            this.comboBox6.TabIndex = 18;
+            // 
+            // comboBox7
+            // 
+            this.comboBox7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.comboBox7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox7.Font = new System.Drawing.Font("Segoe UI Emoji", 10F);
+            this.comboBox7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.comboBox7.FormattingEnabled = true;
+            this.comboBox7.Location = new System.Drawing.Point(660, 2);
+            this.comboBox7.Margin = new System.Windows.Forms.Padding(0, 2, 5, 0);
+            this.comboBox7.Name = "comboBox7";
+            this.comboBox7.Size = new System.Drawing.Size(105, 25);
+            this.comboBox7.TabIndex = 19;
+            // 
+            // comboBox8
+            // 
+            this.comboBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+            this.comboBox8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox8.Font = new System.Drawing.Font("Segoe UI Emoji", 10F);
+            this.comboBox8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.comboBox8.FormattingEnabled = true;
+            this.comboBox8.Location = new System.Drawing.Point(0, 32);
+            this.comboBox8.Margin = new System.Windows.Forms.Padding(0, 2, 5, 0);
+            this.comboBox8.Name = "comboBox8";
+            this.comboBox8.Size = new System.Drawing.Size(105, 25);
+            this.comboBox8.TabIndex = 20;
+            // 
+            // butManageTempAddBottom
+            // 
+            this.butManageTempAddBottom.BackColor = System.Drawing.Color.Gainsboro;
+            this.butManageTempAddBottom.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.butManageTempAddBottom.FlatAppearance.BorderSize = 0;
+            this.butManageTempAddBottom.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Tomato;
+            this.butManageTempAddBottom.FlatAppearance.MouseOverBackColor = System.Drawing.Color.OrangeRed;
+            this.butManageTempAddBottom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.butManageTempAddBottom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butManageTempAddBottom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.butManageTempAddBottom.Location = new System.Drawing.Point(120, 30);
+            this.butManageTempAddBottom.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.butManageTempAddBottom.Name = "butManageTempAddBottom";
+            this.butManageTempAddBottom.Size = new System.Drawing.Size(30, 30);
+            this.butManageTempAddBottom.TabIndex = 21;
+            this.butManageTempAddBottom.Text = "✚";
+            this.butManageTempAddBottom.UseVisualStyleBackColor = false;
+            // 
+            // panTitleNewParam
+            // 
+            this.panTitleNewParam.Controls.Add(this.labTitleAddNewParam);
+            this.panTitleNewParam.Location = new System.Drawing.Point(0, 119);
+            this.panTitleNewParam.Margin = new System.Windows.Forms.Padding(0);
+            this.panTitleNewParam.Name = "panTitleNewParam";
+            this.panTitleNewParam.Size = new System.Drawing.Size(950, 60);
+            this.panTitleNewParam.TabIndex = 20;
+            // 
+            // panTitleParams
+            // 
+            this.panTitleParams.Controls.Add(this.labTitleParams);
+            this.panTitleParams.Location = new System.Drawing.Point(0, 251);
+            this.panTitleParams.Margin = new System.Windows.Forms.Padding(0);
+            this.panTitleParams.Name = "panTitleParams";
+            this.panTitleParams.Size = new System.Drawing.Size(950, 60);
+            this.panTitleParams.TabIndex = 21;
+            // 
+            // panTitleTemplate
+            // 
+            this.panTitleTemplate.Controls.Add(this.labManageTemplate);
+            this.panTitleTemplate.Location = new System.Drawing.Point(0, 561);
+            this.panTitleTemplate.Margin = new System.Windows.Forms.Padding(0);
+            this.panTitleTemplate.Name = "panTitleTemplate";
+            this.panTitleTemplate.Size = new System.Drawing.Size(950, 60);
+            this.panTitleTemplate.TabIndex = 22;
+            // 
             // FormManageSayUnit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.ClientSize = new System.Drawing.Size(1000, 1000);
             this.Controls.Add(this.labelTest);
             this.Controls.Add(this.flowMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormManageSayUnit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Form1";
+            this.Text = "Chat Weaver";
             this.SizeChanged += new System.EventHandler(this.FormManageSayUnit_SizeChanged);
             this.flowNewParam.ResumeLayout(false);
             this.flowNewParam.PerformLayout();
@@ -619,13 +916,22 @@
             this.flowEnum.PerformLayout();
             this.panParamsContainer.ResumeLayout(false);
             this.panelScrollbarContainer.ResumeLayout(false);
+            this.flowTempContainer.ResumeLayout(false);
             this.flowTempMain.ResumeLayout(false);
             this.flowTempLeft.ResumeLayout(false);
-            this.flowTempContainer.ResumeLayout(false);
-            this.panTempTool.ResumeLayout(false);
             this.flowTempName.ResumeLayout(false);
             this.flowTempClass.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picTemp)).EndInit();
+            this.panTempTool.ResumeLayout(false);
+            this.flowManageTempLeft.ResumeLayout(false);
+            this.flowManageTempBottomContainer.ResumeLayout(false);
+            this.flowManageTempBottom.ResumeLayout(false);
+            this.panTitleNewParam.ResumeLayout(false);
+            this.panTitleNewParam.PerformLayout();
+            this.panTitleParams.ResumeLayout(false);
+            this.panTitleParams.PerformLayout();
+            this.panTitleTemplate.ResumeLayout(false);
+            this.panTitleTemplate.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -636,7 +942,7 @@
         private System.Windows.Forms.Button butNewParamAdd;
         private System.Windows.Forms.FlowLayoutPanel flowParamsContainer;
         private System.Windows.Forms.Label labNewParamName;
-        private System.Windows.Forms.Label labAddNewParam;
+        private System.Windows.Forms.Label labTitleAddNewParam;
         private System.Windows.Forms.Label labNewParamDataType;
         private System.Windows.Forms.ComboBox cbNewParamDataType;
         private System.Windows.Forms.Label labNewParamDefaultValue;
@@ -645,7 +951,7 @@
         private System.Windows.Forms.Label labManageSayUnit;
         private System.Windows.Forms.FlowLayoutPanel flowNewParamName;
         private System.Windows.Forms.TextBox tbNewParamName;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labTitleParams;
         private System.Windows.Forms.Panel panParamsContainer;
         private System.Windows.Forms.Panel panelScrollbarContainer;
         private System.Windows.Forms.Label labScrollbar;
@@ -674,6 +980,27 @@
         private System.Windows.Forms.PictureBox picTemp;
         private System.Windows.Forms.Button butTempCollapse;
         private System.Windows.Forms.FlowLayoutPanel flowTempBottom;
+        private System.Windows.Forms.FlowLayoutPanel flowManageTempLeft;
+        private System.Windows.Forms.Label labManageTempLeft;
+        private System.Windows.Forms.ComboBox cbManageTempLeft;
+        private System.Windows.Forms.Label labManageTempRight;
+        private System.Windows.Forms.ComboBox cbManageTempRight;
+        private System.Windows.Forms.Button butManageTempAddRight;
+        private System.Windows.Forms.FlowLayoutPanel flowManageTempBottomContainer;
+        private System.Windows.Forms.Label labMangeTempBottom;
+        private System.Windows.Forms.FlowLayoutPanel flowManageTempBottom;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ComboBox comboBox6;
+        private System.Windows.Forms.ComboBox comboBox7;
+        private System.Windows.Forms.ComboBox comboBox8;
+        private System.Windows.Forms.Button butManageTempAddBottom;
+        private System.Windows.Forms.Panel panTitleNewParam;
+        private System.Windows.Forms.Panel panTitleParams;
+        private System.Windows.Forms.Panel panTitleTemplate;
     }
 }
 

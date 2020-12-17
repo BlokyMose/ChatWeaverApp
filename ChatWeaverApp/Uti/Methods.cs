@@ -128,6 +128,12 @@ namespace ChatWeaverApp.Uti
             controlInput.Validated += (sender, e) => { FalseDataTypeHandler(DataTypeValidation(controlInput, dataType, GetRefList?.Invoke()), controlInput, CallbackIsOkay); };
         }
 
+        public static void SetupInputDataType(Control controlInput, Func<ChatWeaverSystem.System.DataTypesParam> GetDataType, Action<bool> CallbackIsOkay, Func<List<string>> GetRefList = null)
+        {
+            controlInput.Validated += (sender, e) => { FalseDataTypeHandler(DataTypeValidation(controlInput, GetDataType(), GetRefList?.Invoke()), controlInput, CallbackIsOkay); };
+        }
+
+
         private static void FalseDataTypeHandler(bool isAlright, Control controlInput, Action<bool> CallbackIsOkay)
         {
             bool isOkay = false;
@@ -170,7 +176,7 @@ namespace ChatWeaverApp.Uti
                 case ChatWeaverSystem.System.DataTypesParam.Float:
                     float resultFloat;
                     if (float.TryParse(controlInput.Text, out resultFloat)) isOkay = true;
-                    else controlInput.Text = "0.0";
+                    else controlInput.Text = "0";
                     break;
                 case ChatWeaverSystem.System.DataTypesParam.String:
                     if (refList != null)
@@ -182,6 +188,10 @@ namespace ChatWeaverApp.Uti
                         {
                             isOkay = true;
                         }
+                    else
+                    {
+                        isOkay = true;
+                    }
                     break;
                 case ChatWeaverSystem.System.DataTypesParam.Enum:
                     if (refList != null)
@@ -252,6 +262,14 @@ namespace ChatWeaverApp.Uti
                 result.Add(item.ToString());
             }
             return result;
+        }
+
+        public static ChatWeaverSystem.System.DataTypesParam ConvertToDataType(string text)
+        {
+            ChatWeaverSystem.System.DataTypesParam dataTypeParam;
+            Enum.TryParse(text, out dataTypeParam);
+            return dataTypeParam;
+
         }
 
         #endregion
