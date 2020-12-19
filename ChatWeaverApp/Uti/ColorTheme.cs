@@ -19,12 +19,13 @@ namespace ChatWeaverApp.Uti
 
         /// <summary> For Buttons : 220 </summary>
         public static Color lightDimButton = Color.FromArgb(220, 220, 220);
+        public static Color lightDimAccent220 = Color.FromArgb(220, 220, 220);
 
         /// <summary> Selected textboxes : 245 </summary>
         public static Color lightFocus = Color.FromArgb(245, 245, 245);
 
         /// <summary> Selected but dimmed : 242 </summary>
-        public static Color lightFocusDim = Color.FromArgb(240, 240, 240);
+        public static Color lightFocusBrighter = Color.FromArgb(250, 250, 250);
 
         /// <summary> Regular fonts, titles : 10 </summary>
         public static Color fontDark = Color.FromArgb(10, 10, 10);

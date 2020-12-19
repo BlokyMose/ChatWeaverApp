@@ -120,19 +120,32 @@ namespace ChatWeaverApp.Uti
 
         public static void SetupInputDataType(Control controlInput, ChatWeaverSystem.System.DataTypesParam dataType, Action<bool> CallbackIsOkay, List<string> refList = null)
         {
-            controlInput.Validated += (sender, e) => { FalseDataTypeHandler(DataTypeValidation(controlInput, dataType, refList), controlInput, CallbackIsOkay); };
+            if (controlInput is ComboBox)
+            {
+                (controlInput as ComboBox).SelectedIndexChanged += (sender, e) => { FalseDataTypeHandler(DataTypeValidation(controlInput, dataType, refList), controlInput, CallbackIsOkay); };
+            }
+            else
+            {
+                controlInput.Validated += (sender, e) => { FalseDataTypeHandler(DataTypeValidation(controlInput, dataType, refList), controlInput, CallbackIsOkay); };
+            }
         }
 
         public static void SetupInputDataType(Control controlInput, ChatWeaverSystem.System.DataTypesParam dataType, Action<bool> CallbackIsOkay, Func<List<string>> GetRefList )
         {
-            controlInput.Validated += (sender, e) => { FalseDataTypeHandler(DataTypeValidation(controlInput, dataType, GetRefList?.Invoke()), controlInput, CallbackIsOkay); };
+            if(controlInput is ComboBox)
+            {
+                (controlInput as ComboBox).SelectedIndexChanged += (sender, e) => { FalseDataTypeHandler(DataTypeValidation(controlInput, dataType, GetRefList?.Invoke()), controlInput, CallbackIsOkay); };
+            }
+            else
+            {
+                controlInput.Validated += (sender, e) => { FalseDataTypeHandler(DataTypeValidation(controlInput, dataType, GetRefList?.Invoke()), controlInput, CallbackIsOkay); };
+            }
         }
 
         public static void SetupInputDataType(Control controlInput, Func<ChatWeaverSystem.System.DataTypesParam> GetDataType, Action<bool> CallbackIsOkay, Func<List<string>> GetRefList = null)
         {
             controlInput.Validated += (sender, e) => { FalseDataTypeHandler(DataTypeValidation(controlInput, GetDataType(), GetRefList?.Invoke()), controlInput, CallbackIsOkay); };
         }
-
 
         private static void FalseDataTypeHandler(bool isAlright, Control controlInput, Action<bool> CallbackIsOkay)
         {
@@ -227,7 +240,7 @@ namespace ChatWeaverApp.Uti
 
         #region REG: Disposing
 
-        public static void DisposeAllChildren(Control parent)
+        public static void DisposeAllChildren(Control parent, bool destroyParent = false)
         {
             foreach (Control control in parent.Controls)
             {
@@ -242,6 +255,8 @@ namespace ChatWeaverApp.Uti
                     controll.Dispose();
                 }
             }
+
+            if (destroyParent) parent.Dispose();
         }
 
         #endregion
@@ -270,6 +285,14 @@ namespace ChatWeaverApp.Uti
             Enum.TryParse(text, out dataTypeParam);
             return dataTypeParam;
 
+        }
+
+        public static string ConvectToString (Control control)
+        {
+            if (control is TextBox) return "Text Box";
+            else if (control is Label) return "Label";
+            else if (control is ComboBox) return "ComboBox";
+            else return "ERROR";
         }
 
         #endregion

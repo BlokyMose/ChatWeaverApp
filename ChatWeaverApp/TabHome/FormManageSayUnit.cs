@@ -85,7 +85,7 @@ namespace ChatWeaverApp.TabHome
             }
 
             /// <summary> Only for caching</summary>
-            public FlowParam(){}
+            public FlowParam() { }
         }
 
         List<FlowParam> flowParams = new List<FlowParam>();
@@ -93,7 +93,7 @@ namespace ChatWeaverApp.TabHome
         #region REG: Init
         public FormManageSayUnit()
         {
-            InitializeComponent(); 
+            InitializeComponent();
             cbNewParamDataType.Items.AddRange(ChatWeaverSystem.System.DataTypes.Cast<object>().ToArray());
             ResetNewParamControls();
 
@@ -102,23 +102,74 @@ namespace ChatWeaverApp.TabHome
 
             #region -> Delegations
 
-            this.MouseWheel += (sender,e) => { labScrollbar.Focus(); controlScroll_MouseScroll(sender, e); };
+            this.MouseWheel += (sender, e) => { labScrollbar.Focus(); controlScroll_MouseScroll(sender, e); };
             Uti.Methods.SetupForm(this);
-            Uti.Methods.SetupInputDataType(tbNewParamName, ChatWeaverSystem.System.DataTypesParam.String, (isOkay)=> { if (!isOkay) DisallowToMakeNewParam(); }, ()=> { return Master.GetParamAllNames(); });
-            Uti.Methods.SetupInputDataType(cbNewParamDataType, ChatWeaverSystem.System.DataTypesParam.Enum, (isOkay)=>{ if(!isOkay)DisallowToMakeNewParam();}, ChatWeaverSystem.System.DataTypes);
-            Uti.Methods.SetupInputDataType(tbNewParamDefaultValue, Uti.Methods.ConvertToDataType(cbNewParamDataType.Text), (isOkay)=> { if(Uti.Methods.ConvertToDataType(cbNewParamDataType.Text) != ChatWeaverSystem.System.DataTypesParam.Enum) if(!isOkay)DisallowToMakeNewParam(); });
-            Uti.Methods.SetupInputDataType(cbNewParamDefaultValue, ChatWeaverSystem.System.DataTypesParam.Enum, (isOkay) => { if (Uti.Methods.ConvertToDataType(cbNewParamDataType.Text) == ChatWeaverSystem.System.DataTypesParam.Enum) if (!isOkay) DisallowToMakeNewParam(); }, newEnumTypes );//Uti.Methods.ConvertToListString(cbNewParamDefaultValue.Items)
+
+            Uti.Methods.SetupInputDataType(
+                tbNewParamName, 
+                ChatWeaverSystem.System.DataTypesParam.String, 
+                (isOkay) => { if (!isOkay) DisallowToMakeNewParam(); }, 
+                () => { return Master.GetParamAllNames(); });
+
+            Uti.Methods.SetupInputDataType(
+                cbNewParamDataType, 
+                ChatWeaverSystem.System.DataTypesParam.Enum, 
+                (isOkay) => { 
+                    if (!isOkay) DisallowToMakeNewParam(); 
+                }, 
+                ChatWeaverSystem.System.DataTypes);
+            cbNewParamDataType.SelectedIndexChanged += (sender, e) => { cbNewParamDataType_SelectedIndexChanged(sender, e); };
+
+            Uti.Methods.SetupInputDataType(
+                tbNewParamDefaultValue, 
+                Uti.Methods.ConvertToDataType(cbNewParamDataType.Text), 
+                (isOkay) => { 
+                    if (Uti.Methods.ConvertToDataType(cbNewParamDataType.Text) != ChatWeaverSystem.System.DataTypesParam.Enum) 
+                        if (!isOkay) DisallowToMakeNewParam(); 
+                });
+
+            Uti.Methods.SetupInputDataType(
+                cbNewParamDefaultValue, 
+                ChatWeaverSystem.System.DataTypesParam.Enum, 
+                (isOkay) => { 
+                    if (Uti.Methods.ConvertToDataType(cbNewParamDataType.Text) == ChatWeaverSystem.System.DataTypesParam.Enum) 
+                        if (!isOkay) 
+                            DisallowToMakeNewParam(); }, 
+                newEnumTypes); //Uti.Methods.ConvertToListString(cbNewParamDefaultValue.Items)
 
             #endregion
 
             //TODO: Load parameter datas, then update scroll bar
             Uti.Methods.UpdateMaxScroll(flowParamsContainer, panelScrollbarContainer, labScrollbar);
 
+            #region -> Template
+
+            butManageTempAddRight.MouseClick += (sender, e) =>
+            {
+                if (templateBottomCBs.Count + templateRightCBs.Count >= Master.GetParamAllNames().Count) return;
+                if (Master.GetParamAllNames().Count > 0 )
+                {
+                    MakeTemplateCBManage(flowManageTempTop, RightOrBottom.Right);
+                    flowManageTempTop.Controls.SetChildIndex(butManageTempAddRight, flowManageTempTop.Controls.Count - 1);
+                }
+            };
+            butManageTempAddBottom.MouseClick += (sender, e) =>
+            {
+                if (templateBottomCBs.Count + templateRightCBs.Count >= Master.GetParamAllNames().Count) return;
+                if (Master.GetParamAllNames().Count > 0)
+                {
+                    MakeTemplateCBManage(flowManageTempBottom, RightOrBottom.Bottom);
+                    flowManageTempBottom.Controls.SetChildIndex(butManageTempAddBottom, flowManageTempBottom.Controls.Count - 1);
+                }
+            };
+
+            #endregion
+
             // TODO: delete test methods
             Timer timer = new Timer();
             timer.Enabled = true;
             timer.Interval = 1000;
-            timer.Tick += (sender,e)=> { DisplayDatas(); } ;
+            timer.Tick += (sender, e) => { DisplayDatas(); };
         }
 
         private void FormManageSayUnit_SizeChanged(object sender, EventArgs e)
@@ -132,14 +183,16 @@ namespace ChatWeaverApp.TabHome
             for (int i = 0; i < Master.projectData.parameters.Count; i++)
             {
                 string enums = Master.projectData.parameters[i].enumDataTypes != null ? Master.projectData.parameters[i].enumDataTypes.Count > 0 ? Master.projectData.parameters[i].enumDataTypes[0] : "<no>" : "<no>";
-                labelTest.Text += i + ". " + Master.projectData.parameters[i].name+" "+ 
-                    Master.projectData.parameters[i].dataType + " "+ 
-                    Master.projectData.parameters[i].defaultValue +" "+ 
-                    Master.projectData.parameters[i].uiControl +" " +
-                    enums+
+                labelTest.Text += i + ". " + Master.projectData.parameters[i].name + " " +
+                    Master.projectData.parameters[i].dataType + " " +
+                    Master.projectData.parameters[i].defaultValue + " " +
+                    Master.projectData.parameters[i].uiControl + " " +
+                    Master.projectData.parameters[i].icon + " " +
+                    enums +
                     "\n";
             }
         }
+
         #endregion
 
         #region REG: Methods
@@ -148,7 +201,7 @@ namespace ChatWeaverApp.TabHome
         {
             isAllowedToMakeNewParam = true;
 
-            tbNewParamName.Text = Uti.Temp.namePlaceHolder;
+            tbNewParamName.Text = Uti.Temp.namePlaceHolder+"0";
             cbNewParamDataType.SelectedIndex = 0;
             tbNewParamDefaultValue.Text = "0";
             cbNewParamDefaultValue.Text = "";
@@ -190,14 +243,16 @@ namespace ChatWeaverApp.TabHome
                 return;
             }
 
+            ParameterData newParamData = new ParameterData();
             if (cbNewParamDataType.Text != "Enum")
             {
-                ParameterData newParamData = new ParameterData(
+                newParamData = new ParameterData(
                     tbNewParamName.Text,
                     cbNewParamDataType.Text,
                     tbNewParamDefaultValue.Text,
                     "Text Box",
-                    false
+                    false,
+                    "<noIcon>"
                     );
 
                 Master.projectData.parameters.Add(newParamData);
@@ -214,10 +269,11 @@ namespace ChatWeaverApp.TabHome
             }
             else
             {
-                ParameterData newParamData = new ParameterData(
+                newParamData = new ParameterData(
                     tbNewParamName.Text,
                     cbNewParamDefaultValue.Text,
-                    new List<string>() // new enum types will be added when the controls are made
+                    new List<string>(), // new enum types will be added when the controls are made
+                    "<noIcon>"
                     );
 
                 Master.projectData.parameters.Add(newParamData);
@@ -234,6 +290,7 @@ namespace ChatWeaverApp.TabHome
                     );
             }
 
+            AddItemTemplateCBManage(newParamData);
             UpdateFlowParamsHeight();
             ResetNewParamControls();
         }
@@ -298,7 +355,7 @@ namespace ChatWeaverApp.TabHome
             string displayIcon = "<noIcon>"
             )
         {
-            FlowParam thisFlowParam = new FlowParam();
+            FlowParam flowParam = new FlowParam();
             int indexOfThisFlow = flowParams.Count;
             List<string> newEnumTypesCopy = new List<string>();
             if (newEnumTypes != null)
@@ -317,14 +374,14 @@ namespace ChatWeaverApp.TabHome
             #endregion
 
             #region Move Icon
-            Button butMove = Uti.MakeComponents.MakeButtonIcon("⚌", flowParamContainer.BackColor, Uti.ColorTheme.lightFocusDim, Uti.ColorTheme.lightButtonHover);
+            Button butMove = Uti.MakeComponents.MakeButtonIcon("⚌", flowParamContainer.BackColor, Uti.ColorTheme.lightFocusBrighter, Uti.ColorTheme.lightButtonHover);
             butMove.MouseDown += flowParam_MouseDown;
             butMove.MouseUp += flowPram_MouseUp;
 
             flowParamContainer.Controls.Add(butMove);
             #endregion
 
-            int flowWidthReal = flowParamContainer.Width - butMove.Width*3   ; // there are two buttons: but move and but delete
+            int flowWidthReal = flowParamContainer.Width - butMove.Width * 3; // there are two buttons: but move and but delete
             int panelWidth = flowWidthReal / 5; // there are five panels to contain parameter's data
 
             #region Flow Param Main
@@ -344,15 +401,16 @@ namespace ChatWeaverApp.TabHome
             panName.BackColor = Color.Transparent;
             panName.Margin = new Padding(0, 0, 0, 0);
 
-            TextBox tbName = Uti.MakeComponents.MakeTextBoxRegular(name, new Size(panName.Width * 4 / 5, panName.Height), flowParamContainer.BackColor, Uti.ColorTheme.fontDark, Uti.ColorTheme.lightDimTextBox, Uti.ColorTheme.fontDark);
-            string oldParamName ="";
+            TextBox tbName = Uti.MakeComponents.MakeTextBoxRegular(name, new Size(panName.Width * 4 / 5, panName.Height), flowParamContainer.BackColor, Uti.ColorTheme.fontDark, Uti.ColorTheme.lightFocusBrighter, Uti.ColorTheme.fontDark);
+            string oldParamName = "";
             tbName.Enter += (sender, e) => { oldParamName = tbName.Text; };
             tbName.MouseEnter += (sender, e) => { oldParamName = tbName.Text; };
-            tbName.Validated += (sender, e) => 
-            { 
+            tbName.Validated += (sender, e) =>
+            {
                 if (!Master.GetParamAllNames().Contains(tbName.Text))
                 {
-                    Master.projectData.parameters[GetMasterIndex()].name = tbName.Text;
+                    GetThisParamData().name = tbName.Text;
+                    RenameItemTemplateCBManage(oldParamName, tbName.Text, GetThisParamData().linkedToPub);
                 }
                 else
                 {
@@ -378,21 +436,47 @@ namespace ChatWeaverApp.TabHome
 
             #endregion
 
-
             #region TB/CB Default Value
             Panel panDefaultValue = new Panel();
             panDefaultValue.Size = new Size(panelWidth, flowParamMain.Height);
             panDefaultValue.BackColor = Color.Transparent;
             panDefaultValue.Margin = new Padding(0, 0, 0, 0);
 
-            TextBox tbDefaultValue = Uti.MakeComponents.MakeTextBoxRegular(defaultValue, new Size(panDefaultValue.Width * 4 / 5, panDefaultValue.Height), flowParamContainer.BackColor, Uti.ColorTheme.fontDark, Uti.ColorTheme.lightDimTextBox, Uti.ColorTheme.fontDark);
-            Uti.Methods.SetupInputDataType(tbDefaultValue, () => { return Uti.Methods.ConvertToDataType(cbDatatype.Text); }, (isOkay)=> { Master.projectData.parameters[GetMasterIndex()].defaultValue = tbDefaultValue.Text; });
+            TextBox tbDefaultValue = Uti.MakeComponents.MakeTextBoxRegular(defaultValue, new Size(panDefaultValue.Width * 4 / 5, panDefaultValue.Height), flowParamContainer.BackColor, Uti.ColorTheme.fontDark, Uti.ColorTheme.lightFocusBrighter, Uti.ColorTheme.fontDark);
+            Uti.Methods.SetupInputDataType(tbDefaultValue, () => { return Uti.Methods.ConvertToDataType(cbDatatype.Text); }, (isOkay) => { GetThisParamData().defaultValue = tbDefaultValue.Text; });
             panDefaultValue.Controls.Add(tbDefaultValue);
 
             ComboBox cbDefaultValue = Uti.MakeComponents.MakeComboBoxRegular(new List<string>(), flowParamContainer.BackColor, defaultValue);
-            Uti.Methods.SetupInputDataType(cbDefaultValue, () => { return Uti.Methods.ConvertToDataType(cbDatatype.Text); }, (isOkay) => { Master.projectData.parameters[GetMasterIndex()].defaultValue = cbDefaultValue.Text; }, ()=> { return Uti.Methods.ConvertToListString(cbDefaultValue.Items); });
+            Uti.Methods.SetupInputDataType(cbDefaultValue, () => { return Uti.Methods.ConvertToDataType(cbDatatype.Text); }, (isOkay) => { GetThisParamData().defaultValue = cbDefaultValue.Text; }, () => { return Uti.Methods.ConvertToListString(cbDefaultValue.Items); });
             panDefaultValue.Controls.Add(cbDefaultValue);
             flowParamMain.Controls.Add(panDefaultValue);
+            #endregion
+
+            #region CB UI Control Type
+            Panel panUIControl = new Panel();
+            panUIControl.Size = new Size(panelWidth, flowParamMain.Height);
+            panUIControl.BackColor = Color.Transparent;
+            panUIControl.Margin = new Padding(0, 0, 0, 0);
+
+            ComboBox cbUIControl = Uti.MakeComponents.MakeComboBoxRegular(dataType == "Enum" ? ChatWeaverSystem.System.UIControlsEnum : ChatWeaverSystem.System.UIControls, flowParamContainer.BackColor, uiControl);
+            string oldUIControl = "";
+            cbUIControl.Enter += (sender, e) => { oldUIControl = cbUIControl.Text; };
+            cbUIControl.MouseEnter += (sender, e) => { oldUIControl = cbUIControl.Text; };
+            cbUIControl.Validated += (sender, e) =>
+            {
+                if (cbUIControl.Items.Contains(cbUIControl.Text))
+                {
+                    GetThisParamData().uiControl = cbUIControl.Text;
+                }
+                else
+                {
+                    cbUIControl.Text = oldUIControl;
+                }
+            };
+            panUIControl.Controls.Add(cbUIControl);
+
+            flowParamMain.Controls.Add(panUIControl);
+
             #endregion
 
             #region >> CB Data Type : Moved to avoid error 
@@ -400,25 +484,22 @@ namespace ChatWeaverApp.TabHome
             string oldDataType = "";
             cbDatatype.Enter += (sender, e) => { oldDataType = cbDatatype.Text; };
             cbDatatype.MouseEnter += (sender, e) => { oldDataType = cbDatatype.Text; };
-            cbDatatype.Validated += (sender, e) => { CheckDataType(); };
-            cbDatatype.SelectedIndexChanged += (sender, e) =>{ CheckDataType(); };
+            cbDatatype.SelectedIndexChanged += (sender, e) => { OnChangeDataType(); };
 
-            void CheckDataType()
+            void OnChangeDataType()
             {
                 if (cbDatatype.Items.Contains(cbDatatype.Text))
                 {
                     if (oldDataType == cbDatatype.Text) return;
 
-                    oldDataType = cbDatatype.Text; // to prevent double execution since this method is called in SelectedIndexChanged and Validated
-
                     // From enum to another type
                     if (oldDataType == "Enum" && cbDatatype.Text != "Enum")
                     {
-                        tbDefaultValue.Width = 100;
+                        tbDefaultValue.Width = panelWidth;
                         cbDefaultValue.Width = 0;
 
                         #region Remove enum controls
-                        int count = Master.projectData.parameters[GetMasterIndex()].enumDataTypes.Count + flowParamMain.Controls.Count;// butAdd is included
+                        int count = GetThisParamData().enumDataTypes.Count + flowParamMain.Controls.Count;// butAdd is included
                         flowParamMain.Height = flowParamHeight;
                         flowParamContainer.Height = flowParamHeight;
                         UpdateFlowParamsHeight();
@@ -432,65 +513,50 @@ namespace ChatWeaverApp.TabHome
                         #region Setup other data type initialization
 
                         tbDefaultValue.Text = "0";
-                        Master.projectData.parameters[GetMasterIndex()].dataType = cbDatatype.Text;
-                        Master.projectData.parameters[GetMasterIndex()].defaultValue = "0";
+                        GetThisParamData().dataType = cbDatatype.Text;
+                        GetThisParamData().defaultValue = "0";
+
+                        cbUIControl.Items.Clear();
+                        cbUIControl.Items.AddRange(ChatWeaverSystem.System.UIControls.ToArray());
+                        GetThisParamData().uiControl = ChatWeaverSystem.System.UIControls[0];
 
                         #endregion
-
                     }
+
                     // From another type to enum
                     else if (cbDatatype.Text == "Enum")
                     {
                         tbDefaultValue.Width = 0;
-                        cbDefaultValue.Width = 100;
+                        cbDefaultValue.Width = 120;
 
                         #region Setup enum initializations
                         string placeHolderName = Uti.Temp.namePlaceHolder + "1";
                         List<string> newEnumTypesTemp = new List<string>() { placeHolderName };
-                        SetupEnumFlowLocal(newEnumTypesTemp, GetMasterIndex());
-                        cbDefaultValue.Text = placeHolderName;
-                        Master.projectData.parameters[GetMasterIndex()].defaultValue = placeHolderName;
+                        SetupEnumFlowLocal(newEnumTypesTemp, GetThisParamIndex());
+                        cbDefaultValue.SelectedIndex = 0;// = placeHolderName;
+                        GetThisParamData().defaultValue = placeHolderName;
+
+                        // Reset UI control list
+                        cbUIControl.Items.Clear();
+                        cbUIControl.Items.AddRange(ChatWeaverSystem.System.UIControlsEnum.ToArray());
+                        GetThisParamData().uiControl = ChatWeaverSystem.System.UIControlsEnum[0];
                         #endregion
                     }
                     else
                     {
                         tbDefaultValue.Text = "0";
-                        Master.projectData.parameters[GetMasterIndex()].dataType = cbDatatype.Text;
-                        Master.projectData.parameters[GetMasterIndex()].defaultValue = "0";
+                        GetThisParamData().dataType = cbDatatype.Text;
+                        GetThisParamData().defaultValue = "0";
                     }
-                    Master.projectData.parameters[GetMasterIndex()].dataType = cbDatatype.Text;
+                    GetThisParamData().dataType = cbDatatype.Text;
+
+                    oldDataType = cbDatatype.Text; // to prevent double execution since this method is called in SelectedIndexChanged and Validated
                 }
                 else
                 {
                     cbDatatype.Text = oldDataType;
                 }
             }
-            #endregion
-
-            #region CB UI Control Type
-            Panel panUIControl = new Panel();
-            panUIControl.Size = new Size(panelWidth, flowParamMain.Height);
-            panUIControl.BackColor = Color.Transparent;
-            panUIControl.Margin = new Padding(0, 0, 0, 0);
-
-            ComboBox cbUIControl = Uti.MakeComponents.MakeComboBoxRegular(dataType=="Enum"? ChatWeaverSystem.System.UIControlsEnum: ChatWeaverSystem.System.UIControls, flowParamContainer.BackColor, uiControl);
-            string oldUIControl = "";
-            cbUIControl.Enter += (sender, e) => { oldUIControl = cbUIControl.Text; };
-            cbUIControl.MouseEnter += (sender, e) => { oldUIControl = cbUIControl.Text; };
-            cbUIControl.Validated += (sender, e) =>
-            {
-                if (cbUIControl.Items.Contains(cbUIControl.Text))
-                {
-                    Master.projectData.parameters[GetMasterIndex()].uiControl = cbUIControl.Text;
-                }
-                else
-                {
-                    cbUIControl.Text = oldUIControl;
-                }
-            };
-            panUIControl.Controls.Add(cbUIControl);
-
-            flowParamMain.Controls.Add(panUIControl);
 
             #endregion
 
@@ -502,8 +568,8 @@ namespace ChatWeaverApp.TabHome
             panDisplayIcon.Margin = new Padding(0, 0, 0, 0);
 
             ComboBox cbDisplayIcon = Uti.MakeComponents.MakeComboBoxRegular(ChatWeaverSystem.System.DisplayIcons, flowParamContainer.BackColor, displayIcon); // Default: <noIcon>
+            cbDisplayIcon.Validated += (sender, e) => { GetThisParamData().icon = cbDisplayIcon.Text; };
             panDisplayIcon.Controls.Add(cbDisplayIcon);
-
             flowParamMain.Controls.Add(panDisplayIcon);
 
             #endregion
@@ -519,6 +585,7 @@ namespace ChatWeaverApp.TabHome
             {
                 cbDefaultValue.Width = 0;
             }
+
             void SetupEnumFlowLocal(List<string> _newEnumTypesCopy, int masterIndex)
             {
                 Master.projectData.parameters[masterIndex].enumDataTypes = new List<string>();
@@ -539,13 +606,13 @@ namespace ChatWeaverApp.TabHome
                     while (true)
                     {
                         indexHolder++;
-                        if (!Master.projectData.parameters[GetMasterIndex()].enumDataTypes.Contains(nameHolder + indexHolder.ToString()))
+                        if (!GetThisParamData().enumDataTypes.Contains(nameHolder + indexHolder.ToString()))
                         {
                             nameHolder += indexHolder.ToString();
                             break;
                         }
                     }
-                    FlowLayoutPanel newFlow = MakeEnumTypeControlLocal(nameHolder, GetMasterIndex());
+                    FlowLayoutPanel newFlow = MakeEnumTypeControlLocal(nameHolder, GetThisParamIndex());
                     flowParamMain.Controls.Add(newFlow);
                     flowParamMain.Controls.SetChildIndex(butAdd, flowParamMain.Controls.Count - 1);
                 };
@@ -561,25 +628,34 @@ namespace ChatWeaverApp.TabHome
 
                 FlowLayoutPanel newFlow = new FlowLayoutPanel();
                 newFlow = MakeEnumTypeControl(
-                                    nameNew,
-                                    (thisEnum) =>
+                                    text: nameNew,
+                                    CallbackDelete: (thisEnumName) =>
                                     {
-                                        if (Master.projectData.parameters[GetMasterIndex()].enumDataTypes.Count <= 1) return;
-                                        Master.projectData.parameters[GetMasterIndex()].enumDataTypes.Remove(thisEnum);
-                                        cbDefaultValue.Items.Remove(thisEnum);
+                                        if (GetThisParamData().enumDataTypes.Count <= 1) return;
+                                        // Select new default value
+                                        if (cbDefaultValue.Text == thisEnumName)
+                                        {
+                                            cbDefaultValue.Text = cbDefaultValue.Items.IndexOf(thisEnumName) == 0 ? cbDefaultValue.Items[1].ToString() : cbDefaultValue.Items[0].ToString();
+                                            GetThisParamData().defaultValue = cbDefaultValue.Text;
+                                        }
+                                        // Dispose data
+                                        cbDefaultValue.Items.Remove(thisEnumName);
+                                        GetThisParamData().enumDataTypes.Remove(thisEnumName);
                                         newFlow.Dispose();
                                     },
-                                    (oldName, newName, tb) =>
+                                    CallbackValidated: (oldName, newName, tb) =>
                                     {
-                                        if (!Master.projectData.parameters[GetMasterIndex()].enumDataTypes.Contains(newName))
+                                        if (!GetThisParamData().enumDataTypes.Contains(newName))
                                         {
-                                            int thisIndex = Master.projectData.parameters[GetMasterIndex()].enumDataTypes.IndexOf(oldName);
+                                            int thisIndex = GetThisParamData().enumDataTypes.IndexOf(oldName);
 
-                                            Master.projectData.parameters[GetMasterIndex()].enumDataTypes.Remove(oldName);
-                                            Master.projectData.parameters[GetMasterIndex()].enumDataTypes.Insert(thisIndex, newName);
+                                            GetThisParamData().enumDataTypes.Remove(oldName);
+                                            GetThisParamData().enumDataTypes.Insert(thisIndex, newName);
 
                                             cbDefaultValue.Items.Remove(oldName);
                                             cbDefaultValue.Items.Insert(thisIndex, newName);
+
+                                            if(cbDefaultValue.Text == "" || cbDefaultValue.Text == oldName) cbDefaultValue.Text = newName; // Check if the renamed enum is the default value
                                         }
                                         else
                                         {
@@ -608,17 +684,21 @@ namespace ChatWeaverApp.TabHome
             Button butMore = Uti.MakeComponents.MakeButtonIcon("⚙️", flowParamContainer.BackColor, Uti.ColorTheme.more, Uti.ColorTheme.moreDark);
             butMore.MouseClick += (sender, e) =>
             {
-                DialogForms.ContextSimple contextSimple = new DialogForms.ContextSimple(true,()=> { ShowInsight(); });
+                DialogForms.ContextSimple contextSimple = new DialogForms.ContextSimple(true, () => { ShowInsight(); });
                 contextSimple.MakeMenuClick("Delete", () => { DeleteParam(); }, true, "🔥", Uti.ColorTheme.red);
                 contextSimple.MakeMenuClick("Delete", () => { DeleteParam(); }, true, "🔥", Uti.ColorTheme.red);
                 contextSimple.MakeMenuClick("Delete", () => { DeleteParam(); }, true, "🔥", Uti.ColorTheme.red);
                 contextSimple.MakeMenuClick("Delete", () => { DeleteParam(); }, true, "🔥", Uti.ColorTheme.red);
 
                 contextSimple.Show();
-                
+
                 void DeleteParam()
                 {
-
+                    ParameterData deleteParam = GetThisParamData();
+                    RemoveItemTemplateCBManage(deleteParam);
+                    flowParams.Remove(flowParam);
+                    flowParamContainer.Dispose();
+                    Master.projectData.parameters.Remove(deleteParam);
                 }
 
                 void ShowInsight()
@@ -630,7 +710,7 @@ namespace ChatWeaverApp.TabHome
             #endregion
 
             #region Instantiate The Major Flow
-            thisFlowParam.SetData(
+            flowParam.SetData(
                 flow: flowParamContainer,
                 butMove: butMove,
                 tbName: tbName,
@@ -643,14 +723,19 @@ namespace ChatWeaverApp.TabHome
                 paramData: parameterData,
                 index: flowParams.Count
                 );
-            flowParams.Add(thisFlowParam);
+            flowParams.Add(flowParam);
             #endregion
 
             return flowParamContainer;
 
-            int GetMasterIndex()
+            int GetThisParamIndex()
             {
-                return flowParams[flowParams.IndexOf(thisFlowParam)].index;
+                return flowParams[flowParams.IndexOf(flowParam)].index;
+            }
+
+            ParameterData GetThisParamData()
+            {
+                return Master.projectData.parameters[flowParams[flowParams.IndexOf(flowParam)].index];
             }
 
         }
@@ -697,7 +782,7 @@ namespace ChatWeaverApp.TabHome
                 while (true)
                 {
                     index++;
-                    if (!newEnumTypes.Contains(namePlaceHolder+index.ToString()))
+                    if (!newEnumTypes.Contains(namePlaceHolder + index.ToString()))
                     {
                         namePlaceHolder += index.ToString();
                         break;
@@ -710,15 +795,20 @@ namespace ChatWeaverApp.TabHome
 
                 FlowLayoutPanel newFlowEnum = new FlowLayoutPanel();
                 newFlowEnum = MakeEnumTypeControl(
-                    namePlaceHolder,
-                    (name) => 
-                    { 
+                    text: namePlaceHolder,
+                    CallbackDelete: (name) =>
+                    {
                         if (newEnumTypes.Count <= 1) return;
+                        if(cbNewParamDefaultValue.Text == name)
+                        {
+                            cbNewParamDefaultValue.Text = cbNewParamDefaultValue.Items.IndexOf(name) == 0 ? cbNewParamDefaultValue.Items[1].ToString() : cbNewParamDefaultValue.Items[0].ToString();
+                        }
+
                         newEnumTypes.Remove(name);
                         cbNewParamDefaultValue.Items.Remove(name);
                         newFlowEnum.Dispose();
                     },
-                    (oldName, newName, tb) =>
+                    CallbackValidated: (oldName, newName, tb) =>
                     {
                         if (!newEnumTypes.Contains(newName))
                         {
@@ -729,8 +819,7 @@ namespace ChatWeaverApp.TabHome
 
                             cbNewParamDefaultValue.Items.Remove(oldName);
                             cbNewParamDefaultValue.Items.Insert(thisIndex, newName);
-
-                            cbNewParamDefaultValue.SelectedIndex = 0;
+                            if (cbNewParamDefaultValue.Text == "" || cbNewParamDefaultValue.Text == oldName) cbNewParamDefaultValue.Text = newName; // Check if the renamed enum is the default value. OldName is used when "unnamed1" is manually printed on the cb
                         }
                         else
                         {
@@ -763,8 +852,11 @@ namespace ChatWeaverApp.TabHome
             butDelete.MouseClick += (sender, e) => { CallbackDelete(tbDataType.Text); };
             flowDataTypeMember.Controls.Add(butDelete);
 
-            tbDataType.Focus();
+            ActiveControl = null;
+
             tbDataType.SelectAll();
+            tbDataType.Focus();
+
 
             return flowDataTypeMember;
         }
@@ -788,6 +880,7 @@ namespace ChatWeaverApp.TabHome
 
             isMouseMoving = true;
         }
+
         private void flowPram_MouseUp(object sender, MouseEventArgs e)
         {
             Point newLocation = new Point(0, e.Y - mouseLocWhenDown.Y);
@@ -795,25 +888,23 @@ namespace ChatWeaverApp.TabHome
             int indexOld = flowCurrent.index;
 
             int index = flowParamsContainer.Controls.GetChildIndex(flowCurrent.flow) + (
-                newLocation.Y > 0 
-                ? ((int)Math.Floor((float)newLocation.Y / (flowParamHeight + 10))) 
+                newLocation.Y > 0
+                ? ((int)Math.Floor((float)newLocation.Y / (flowParamHeight + 10)))
                 : ((int)Math.Ceiling((float)newLocation.Y / (flowParamHeight + 10))));
-            index = index > 0 ? index < flowParams.Count ? index : flowParams.Count-1 : 0;
+            index = index > 0 ? index < flowParams.Count ? index : flowParams.Count - 1 : 0;
 
             // Reorder UI controls
             flowParamsContainer.Controls.SetChildIndex(flowCurrent.flow, index);
 
             // Reorder master data
             ParameterData tempParamData = new ParameterData(flowCurrent.paramData);
-            if(index == flowParams.Count-1) Master.projectData.parameters.Add(tempParamData);
+            if (index == flowParams.Count - 1) Master.projectData.parameters.Add(tempParamData);
             else Master.projectData.parameters.Insert(index, tempParamData);
             Master.projectData.parameters.Remove(flowCurrent.paramData);
 
             // Reorder the flowParam data handlers in flowParams
             if (index < indexOld)
             {
-                labTitleAddNewParam.Text = "To Down: Ind: " + index.ToString() + ";  Old: " + indexOld.ToString();
-
                 for (int i = indexOld - 1; i >= index; i--)
                 {
                     flowParams[i].index++;
@@ -821,8 +912,7 @@ namespace ChatWeaverApp.TabHome
             }
             else if (index > indexOld)
             {
-                labTitleAddNewParam.Text = "To UP: Ind: " + index.ToString() + ";  Old: " + indexOld.ToString();
-                for (int i = indexOld+1; i <= index; i++)
+                for (int i = indexOld + 1; i <= index; i++)
                 {
                     try
                     {
@@ -836,7 +926,6 @@ namespace ChatWeaverApp.TabHome
                         System.Diagnostics.Debug.WriteLine(i.ToString());
                         throw;
                     }
-                    //labTitleAddNewParam.Text += flowParams[i].index.ToString(); //TODO: delete
                 }
             }
 
@@ -858,15 +947,15 @@ namespace ChatWeaverApp.TabHome
         {
             isMouseMoving = false;
         }
-        public void ScrollMouseDown(object sender,MouseEventArgs e)
+        public void ScrollMouseDown(object sender, MouseEventArgs e)
         {
             isMouseMoving = true;
             mouseLocWhenDown = new Point(e.X, e.Y);
         }
-        public void ScrollMouseMove(object sender,MouseEventArgs e)
+        public void ScrollMouseMove(object sender, MouseEventArgs e)
         {
-            if(isMouseMoving)
-            Uti.Methods.ScrollMouseMove(e, mouseLocWhenDown, flowParamsContainer, panelScrollbarContainer, labScrollbar);
+            if (isMouseMoving)
+                Uti.Methods.ScrollMouseMove(e, mouseLocWhenDown, flowParamsContainer, panelScrollbarContainer, labScrollbar);
         }
 
         private void controlScroll_MouseScroll(object sender, MouseEventArgs e)
@@ -883,6 +972,399 @@ namespace ChatWeaverApp.TabHome
         private void DisallowToMakeNewParam()
         {
             isAllowedToMakeNewParam = false;
+        }
+
+        #endregion
+
+        #region REG: Template
+
+        List<ComboBox> templateBottomCBs = new List<ComboBox>();
+        List<ComboBox> templateRightCBs = new List<ComboBox>();
+        List<TemplateInput> templateInputsRight = new List<TemplateInput>();
+        List<TemplateInput> templateInputsBottom = new List<TemplateInput>();
+
+        class TemplateInput 
+        {
+            public string icon;
+            public Control control;
+            public ComboBox cbManage;
+            public RightOrBottom rob;
+
+            public TemplateInput(string icon, Control control, ComboBox cbManage, RightOrBottom rob)
+            {
+                this.icon = icon;
+                this.control = control;
+                this.cbManage = cbManage;
+                this.rob = rob;
+            }
+        }
+
+        private void AddItemTemplateCBManage(ParameterData param)
+        {
+            if (param.linkedToPub) cbManageTempLeft.Items.Add(param.name);
+
+            foreach (ComboBox cb in templateBottomCBs)
+            {
+                    cb.Items.Add(param.name);
+            }
+            foreach (ComboBox cb in templateRightCBs)
+            {
+                    cb.Items.Add(param.name);
+            }
+        }
+
+        private void RemoveItemTemplateCBManage(ParameterData param)
+        {
+            if (param.linkedToPub)
+            {
+                cbManageTempLeft.Items.Remove(param.name);
+                if (cbManageTempLeft.Text == param.name)
+                {
+                    cbManageTempLeft.Text = "";
+                    //TODO: remove control ui
+                }
+            }
+            foreach (ComboBox cb in templateBottomCBs)
+            {
+                cb.Items.Remove(param.name);
+                if (cb.Text == param.name)
+                {
+                    cb.Dispose();
+                    //TODO: remove control ui
+                }
+            }
+            foreach (ComboBox cb in templateRightCBs)
+            {
+                cb.Items.Remove(param.name);
+                if (cb.Text == param.name)
+                {
+                    cb.Dispose();
+                    //TODO: remove control ui
+                }
+            }
+        }
+
+        private void RenameItemTemplateCBManage(string oldName, string newName, bool isLinked)
+        {
+            if (isLinked)
+            {
+                cbManageTempLeft.Items[cbManageTempLeft.Items.IndexOf(oldName)] = newName;
+                if(cbManageTempLeft.Text == oldName)
+                {
+                    cbManageTempLeft.Text = newName;
+                }
+            }
+            foreach (ComboBox cb in templateBottomCBs)
+            {
+                cb.Items[cb.Items.IndexOf(oldName)] = newName;
+                if(cb.Text == oldName)
+                {
+                    cb.Text = newName;
+                }
+            }
+            foreach (ComboBox cb in templateRightCBs)
+            {
+                cb.Items[cb.Items.IndexOf(oldName)] = newName;
+            }
+        }
+
+        /// <summary>
+        /// Template Input Control is updated by checking the text of its control box Manage; <br></br>
+        /// Template Input does not contain any data name, but holds reference only to its CB Manage
+        /// </summary>
+        /// <param name="name">parameter name</param>
+        private void UpdateTemplateInput(string name)
+        {
+            for (int i = 0; i < templateInputsRight.Count; i++)
+            {
+                if(templateInputsRight[i].cbManage.Text == name)
+                {
+                    ParameterData paramData = Master.projectData.parameters[Master.GetParamAllNames().IndexOf(name)];
+
+                    templateInputsRight[i].icon = paramData.icon;
+                    //ChangeControlUI(paramData, i, templateInputsRight[i].rob); //TODO: add combo box
+                    templateInputsRight[i].control.Text = paramData.defaultValue;
+
+                    break;
+                }
+            }
+
+            for (int i = 0; i < templateInputsBottom.Count; i++)
+            {
+                if (templateInputsBottom[i].cbManage.Text == name)
+                {
+                    ParameterData paramData = Master.projectData.parameters[Master.GetParamAllNames().IndexOf(name)];
+
+                    templateInputsBottom[i].icon = paramData.icon;
+                    //ChangeControlUI(paramData, i, templateInputsBottom[i].rob); //TODO: add combo box
+                    templateInputsBottom[i].control.Text = paramData.defaultValue;
+
+                    break;
+                }
+            }
+
+            void ChangeControlUI(ParameterData paramData, int index, RightOrBottom rob, ComboBox cb)
+            {
+                if (paramData.uiControl == "Text Box" && templateInputsRight[index].control is TextBox) return;
+                else if(paramData.uiControl == "Combo Box" && templateInputsRight[index].control is ComboBox) return;
+                else if(paramData.uiControl == "Label" && templateInputsRight[index].control is Label) return;
+
+                templateInputsRight[index].control.Dispose();
+
+                Control newControl = MakeTemplateInput(paramData.uiControl, rob, paramData, cb); // TODO: change within the list
+
+                if (rob == RightOrBottom.Right)
+                {
+                    templateInputsRight[index].control = newControl;
+                    flowTempRight.Controls.Add(newControl);
+                }
+                else if (rob == RightOrBottom.Bottom)
+                {
+                    templateInputsBottom[index].control = newControl;
+                    flowTempBottom.Controls.Add(newControl);
+                }
+
+            }
+        }
+
+        enum RightOrBottom { Right, Bottom };
+        static class TemplateRight
+        {
+            //NOTE: more controls in template right will cause the scrollbar to emerge and decrease the height of the child flows
+            public static Size parentSize = new Size(720, 160);
+            public static Padding parentPadding = new Padding(10, 15, 10, 15);
+            public static Color backColor = Uti.ColorTheme.lightFocus;
+            public static Size childSize = new Size(700, 120);
+            public static Font font = Uti.FontTheme.regular;
+        }
+        static class TemplateBottom
+        {
+            public static Size parentSize = new Size(900, 40);
+            public static Color backColor = Uti.ColorTheme.lightDimAccent220;
+            public static Padding childFlowPadding = new Padding(5, 0, 0, 0);
+            public static Size childFlowSize = new Size(180, 40);
+            public static Size childControlInputSize = new Size(110, 40);
+            public static Size childIconSize = new Size(60, childFlowSize.Height);
+            public static Font font = Uti.FontTheme.small;
+        }
+
+        private void MakeTemplateCBManage(FlowLayoutPanel parent, RightOrBottom rightOrBottom)
+        {
+            #region Give name
+            ParameterData unselectedParam = Master.projectData.parameters[0];
+            List<ComboBox> combinedCBs = new List<ComboBox>();
+            combinedCBs.AddRange(templateRightCBs);
+            combinedCBs.AddRange(templateBottomCBs);
+            foreach (ComboBox item in combinedCBs)
+            {
+                foreach (ParameterData data in Master.projectData.parameters)
+                {
+                    if (item.Text != data.name) unselectedParam = data;
+                }
+            }
+            #endregion
+
+            #region Instantiate
+
+            ComboBox cb = Uti.MakeComponents.MakeComboBoxRegular(Master.GetParamAllNames(), Uti.ColorTheme.lightDimTextBox, unselectedParam.name);
+            cb.Margin = new Padding(0, 3, 5, 2);
+            cb.Items.Insert(0, "<delete>");
+            Uti.Methods.SetupInputDataType(
+                controlInput:   cb,
+                dataType: ChatWeaverSystem.System.DataTypesParam.Enum,
+                CallbackIsOkay: (isOkay) => { CheckSelectedIndex(isOkay, rightOrBottom, cb);},
+                GetRefList:     () =>
+                {
+                    List<string> names = new List<string>();
+                    names.Add("<delete>");
+                    names.AddRange(Master.GetParamAllNames());
+                    return names;
+                });
+
+            //cb.SelectedIndexChanged += (sender, e) => { CheckSelectedIndex(rightOrBottom, cb); };
+
+            #endregion
+
+            #region Locate in the template
+
+            if (rightOrBottom == RightOrBottom.Right)
+            {
+                templateRightCBs.Add(cb);
+                flowTempRight.Controls.Add(MakeTemplateInput(unselectedParam.uiControl, rightOrBottom, unselectedParam, cb));
+            }
+            else
+            {
+                templateBottomCBs.Add(cb);
+                flowTempBottom.Controls.Add(MakeTemplateInput(unselectedParam.uiControl, rightOrBottom, unselectedParam, cb));
+            }
+
+            parent.Controls.Add(cb);
+
+            #endregion
+
+            #region Local Methods
+
+            void CheckSelectedIndex(bool _isOkay, RightOrBottom _rightOrBottom, ComboBox _cb)
+            {
+                if (_cb.SelectedIndex == 0)
+                {
+                    if (_rightOrBottom == RightOrBottom.Right)
+                    {
+                        templateRightCBs.Remove(_cb);
+                        foreach (TemplateInput item in templateInputsRight)
+                        {
+                            if(item.cbManage == _cb)
+                            {
+                                Uti.Methods.DisposeAllChildren(item.control, true);
+                                item.cbManage.Dispose();
+                                templateInputsRight.Remove(item);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        templateBottomCBs.Remove(_cb);
+                        foreach (TemplateInput item in templateInputsBottom)
+                        {
+                            if (item.cbManage == _cb)
+                            {
+                                Uti.Methods.DisposeAllChildren(item.control, true);
+                                item.cbManage.Dispose();
+                                templateInputsBottom.Remove(item);
+                                break;
+                            }
+                        }
+                    }
+                    DestroyThis(_cb, _rightOrBottom);
+                }
+                else
+                {
+                    // TODO: switch same control ui
+                    List<ComboBox> allCBs = new List<ComboBox>();
+                    allCBs.AddRange(templateRightCBs);
+                    allCBs.AddRange(templateBottomCBs);
+
+                    foreach (ComboBox comboBox in allCBs)
+                    {
+                        if(comboBox.SelectedIndex == _cb.SelectedIndex)
+                        {
+                            int temp = _cb.SelectedIndex;
+                            _cb.SelectedIndex = comboBox.SelectedIndex;
+                            comboBox.SelectedIndex = temp;
+
+                            //TODO: switch the control
+
+                            return;
+                        }
+                    }
+
+                    // TODO: Instantiate the contorl based on index
+                }
+
+            }
+
+            void DestroyThis(ComboBox _cb, RightOrBottom rob)
+            {
+                // TODO: remove the control ui based on index
+
+
+                int index = rob == RightOrBottom.Right ? templateRightCBs.IndexOf(_cb) : templateBottomCBs.IndexOf(_cb);
+
+                if (rob == RightOrBottom.Right) templateRightCBs.Remove(cb);
+                else templateBottomCBs.Remove(cb);
+                _cb.Dispose();
+            }
+
+            #endregion
+        }
+
+        Control MakeTemplateInput(string controlType, RightOrBottom rob, ParameterData paramData, ComboBox cb)
+        {
+            Control control = new Control();
+
+            string icon = Master.projectData.parameters[Master.GetParamAllNames().IndexOf(cb.Text)].icon;
+            int index = Master.GetParamAllNames().IndexOf(cb.Text);
+
+            if (rob == RightOrBottom.Right)
+            {
+                // NOTE: The child in Right doesn't show icon and doesn't have container;
+                if (controlType == "Text Box")
+                {
+                    control = Uti.MakeComponents.MakeTextBoxRegular(paramData.defaultValue, TemplateRight.childSize, TemplateRight.backColor, Uti.ColorTheme.fontDark, Uti.ColorTheme.lightFocusBrighter);
+                    (control as TextBox).Multiline = true;
+                }
+                else if (controlType == "Label")
+                {
+                    control = Uti.MakeComponents.MakeLabelRegular(paramData.defaultValue, TemplateRight.backColor);
+                    (control as Label).AutoSize = false;
+                    (control as Label).Size = TemplateRight.childSize;
+                }
+                else if (controlType == "Combo Box")
+                {
+                    control = Uti.MakeComponents.MakeComboBoxRegular(paramData.enumDataTypes, TemplateRight.backColor, paramData.defaultValue);
+                    control.Size = TemplateRight.childSize;
+                }
+
+                control.Font = TemplateRight.font;
+                TemplateInput ti = new TemplateInput(icon, control, cb, rob);
+                templateInputsRight.Add(ti);
+                flowTempRight.Controls.Add(control);
+            }
+            else
+            {
+                control = new FlowLayoutPanel();
+                control.Size = TemplateBottom.childFlowSize;
+                control.Padding = TemplateBottom.childFlowPadding;
+                control.Margin = new Padding(0);
+                control.BackColor = TemplateBottom.backColor;
+                control.Font = TemplateBottom.font;
+
+                Label _icon = Uti.MakeComponents.MakeLabelRegular(paramData.icon == "<noIcon>" ? paramData.name+":" : paramData.icon, TemplateBottom.backColor);
+                _icon.AutoSize = false;
+                _icon.Size = TemplateBottom.childIconSize;
+                _icon.Font = TemplateBottom.font;
+                _icon.TextAlign = ContentAlignment.MiddleRight;
+                _icon.AutoEllipsis = true;
+                _icon.Padding = new Padding(0, 0, 2, 0);
+                control.Controls.Add(_icon);
+
+
+                // NOTE: The child in Right doesn't show icon and doesn't have container;
+                if (controlType == "Text Box")
+                {
+                    FlowLayoutPanel container = new FlowLayoutPanel();
+                    container.Size = TemplateBottom.childControlInputSize;
+                    container.Padding = new Padding(3, 12, 3, 3);
+                    container.Margin = new Padding(0, 0, 0, 0);
+                    control.Controls.Add(container);
+                    Size tbSize = new Size(TemplateBottom.childControlInputSize.Width - container.Padding.Horizontal, TemplateBottom.childControlInputSize.Height - container.Padding.Vertical);
+                    TextBox tb = Uti.MakeComponents.MakeTextBoxRegular(paramData.defaultValue, tbSize, TemplateBottom.backColor);
+                    tb.Font = TemplateBottom.font;
+                    container.Controls.Add(tb);
+                }
+                else if (controlType == "Label")
+                {
+                    Label lab = Uti.MakeComponents.MakeLabelRegular(paramData.defaultValue, TemplateBottom.backColor);
+                    lab.AutoSize = false;
+                    lab.Size = TemplateBottom.childControlInputSize;
+                    lab.Font = TemplateBottom.font;
+                    control.Controls.Add(lab);
+                }
+                else if (controlType == "Combo Box")
+                {
+                    ComboBox _cb = Uti.MakeComponents.MakeComboBoxRegular(paramData.enumDataTypes, TemplateBottom.backColor, paramData.defaultValue);
+                    _cb.Size = new Size(TemplateBottom.childControlInputSize.Width - TemplateBottom.childFlowPadding.Horizontal, 25);
+                    _cb.Margin = new Padding(0, 5, 0, 0);
+                    control.Controls.Add(_cb);
+                }
+
+                TemplateInput ti = new TemplateInput(icon, control, cb, rob);
+                templateInputsBottom.Add(ti);
+                flowTempBottom.Controls.Add(control);
+            }
+
+            return control;
         }
 
         #endregion

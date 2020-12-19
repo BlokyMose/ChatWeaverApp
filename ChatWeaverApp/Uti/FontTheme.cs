@@ -11,6 +11,8 @@ namespace ChatWeaverApp.Uti
     {
         /// <summary> Segoe UI : 8pt </summary>
         public static Font mini = new Font("Segoe UI Emoji", 8);
+        /// <summary> Segoe UI : 10pt </summary>
+        public static Font small = new Font("Segoe UI Emoji", 10);
         /// <summary> Segoe UI : 12pt </summary>
         public static Font regular = new Font("Segoe UI Emoji", 12);
         /// <summary> Futura Md BT : 54pt </summary>

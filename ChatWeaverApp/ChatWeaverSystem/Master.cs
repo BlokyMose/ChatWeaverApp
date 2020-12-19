@@ -11,6 +11,8 @@ namespace ChatWeaverApp
         public List<ParameterData> parameters = new List<ParameterData>();
     }
 
+    #region REG: All Data
+
     public class ParameterData
     {
         public string name;
@@ -18,6 +20,7 @@ namespace ChatWeaverApp
         public string defaultValue;
         public string uiControl;
         public bool linkedToPub;
+        public string icon;
 
         public List<string> enumDataTypes = new List<string>();
 
@@ -26,21 +29,24 @@ namespace ChatWeaverApp
             string dataType,
             string defaultValue,
             string uiControl,
-            bool linkedToPub
+            bool linkedToPub,
+            string icon
             )
         {
-             this.name = name;
-             this.dataType = dataType;
-             this.defaultValue = defaultValue;
-             this.uiControl = uiControl;
-             this.linkedToPub = linkedToPub;
+            this.name = name;
+            this.dataType = dataType;
+            this.defaultValue = defaultValue;
+            this.uiControl = uiControl;
+            this.linkedToPub = linkedToPub;
+            this.icon = icon;
         }
 
         /// <summary>Instantiate new param data for enum data type </summary>
         public ParameterData(
             string name,
             string defaultValue,
-            List<string> enumDataType
+            List<string> enumDataType,
+            string icon
             )
         {
             this.name = name;
@@ -49,6 +55,7 @@ namespace ChatWeaverApp
             this.uiControl = "Combo Box";
             this.linkedToPub = false;
             this.enumDataTypes = enumDataType;
+            this.icon = icon;
         }
 
         public ParameterData(ParameterData copyParam)
@@ -66,8 +73,29 @@ namespace ChatWeaverApp
                     this.enumDataTypes.Add(item);
                 }
             }
+            this.icon = copyParam.icon;
         }
+
+        /// <summary>For caching</summary>
+        public ParameterData() { }
     }
+
+    public class SayTemplateData
+    {
+        public ParameterData templateLeftData = new ParameterData();
+        public List<ParameterData> templateRightDatas = new List<ParameterData>();
+        public List<ParameterData> templateBottomDatas = new List<ParameterData>();
+
+        public SayTemplateData (ParameterData templateLeftData, List<ParameterData> templateRightDatas, List<ParameterData> templateBottomDatas)
+        {
+            this.templateLeftData = new ParameterData(templateLeftData);
+            this.templateRightDatas = templateRightDatas.ToList();      //TODO: check if this is possible
+            this.templateBottomDatas = templateBottomDatas.ToList();
+        }
+
+    }
+
+    #endregion
 
     public static class Master
     {

@@ -83,16 +83,16 @@ namespace ChatWeaverApp.Uti
             return but;
         }
 
-        public static TextBox MakeTextBoxRegular(string text, Size size, Color? backColor=null, Color? fontColor = null, Color? backColorHighlight=null, Color? fontColorHighlight=null)
+        public static TextBox MakeTextBoxRegular(string defaultValue, Size size, Color? backColor=null, Color? fontColor = null, Color? backColorHighlight=null, Color? fontColorHighlight=null)
         {
             backColor = backColor == null ? ColorTheme.lightDimTextBox : backColor;
             fontColor = fontColor == null ? ColorTheme.fontDarkDim : fontColor;
-            backColorHighlight = backColorHighlight == null ? ColorTheme.lightFocus : backColorHighlight;
+            backColorHighlight = backColorHighlight == null ? ColorTheme.lightFocusBrighter : backColorHighlight;
             fontColorHighlight = fontColorHighlight == null ? ColorTheme.fontDark : fontColorHighlight;
 
             TextBox tb = new TextBox();
             tb.Size = size;
-            tb.Text = text;
+            tb.Text = defaultValue;
             tb.Font = FontTheme.regular;
             tb.BackColor = (Color)backColor;
             tb.ForeColor = (Color)fontColor;
@@ -106,11 +106,11 @@ namespace ChatWeaverApp.Uti
             return tb;
         }
 
-        public static ComboBox MakeComboBoxRegular(List<string> items, Color backColor, string text = null)
+        public static ComboBox MakeComboBoxRegular(List<string> items, Color backColor, string defaultValue = null)
         {
             ComboBox cb = new ComboBox();
 
-            if (text != null) { cb.Text = text; } 
+            if (defaultValue != null) { cb.Text = defaultValue; } 
             else { cb.SelectedIndex = 0; }
             cb.Items.AddRange(items.Cast<object>().ToArray());
             cb.Font = Uti.FontTheme.regular;
