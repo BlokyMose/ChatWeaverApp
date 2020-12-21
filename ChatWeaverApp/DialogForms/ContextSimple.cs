@@ -29,6 +29,9 @@ namespace ChatWeaverApp.DialogForms
             }
         }
 
+        /// <summary>For caching</summary>
+        public ContextSimple(){}
+
         public void MakeMenuClick(string name, Action CallbackClick, bool hasLock = false , string icon = "", Color? colorIcon = null, Color? colorName = null)
         {
             colorIcon = colorIcon != null ? (Color)colorIcon : Uti.ColorTheme.fontDark;

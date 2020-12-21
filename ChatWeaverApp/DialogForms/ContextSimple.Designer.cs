@@ -76,6 +76,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ContextSimple";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "ContextSimple";
             this.flowMainContainer.ResumeLayout(false);
             this.ResumeLayout(false);

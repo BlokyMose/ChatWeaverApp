@@ -28,7 +28,9 @@ namespace ChatWeaverApp.TabHome
             public Button butLink;
             public Button butDelete;
             public ParameterData paramData;
-            public int index;
+            public int index;               
+            // To avoid re-instantiation of FlowParam, each flow param has its own index property
+            // When moved, only when "moved", the index value will be changed. 
 
             public FlowParam(
                 FlowLayoutPanel flow,
@@ -356,7 +358,6 @@ namespace ChatWeaverApp.TabHome
             )
         {
             FlowParam flowParam = new FlowParam();
-            int indexOfThisFlow = flowParams.Count;
             List<string> newEnumTypesCopy = new List<string>();
             if (newEnumTypes != null)
             {
@@ -385,6 +386,7 @@ namespace ChatWeaverApp.TabHome
             int panelWidth = flowWidthReal / 5; // there are five panels to contain parameter's data
 
             #region Flow Param Main
+            // Contains all the TBs and CBs
 
             FlowLayoutPanel flowParamMain = new FlowLayoutPanel();
             flowParamMain.BackColor = Color.Transparent;
@@ -409,8 +411,8 @@ namespace ChatWeaverApp.TabHome
             {
                 if (!Master.GetParamAllNames().Contains(tbName.Text))
                 {
-                    GetThisParamData().name = tbName.Text;
-                    RenameItemTemplateCBManage(oldParamName, tbName.Text, GetThisParamData().linkedToPub);
+                    GetThisParamData(true).name = tbName.Text;
+                    UpdateTemplateCBManage(oldParamName, GetThisParamData(), tbName.Text);
                 }
                 else
                 {
@@ -443,13 +445,26 @@ namespace ChatWeaverApp.TabHome
             panDefaultValue.Margin = new Padding(0, 0, 0, 0);
 
             TextBox tbDefaultValue = Uti.MakeComponents.MakeTextBoxRegular(defaultValue, new Size(panDefaultValue.Width * 4 / 5, panDefaultValue.Height), flowParamContainer.BackColor, Uti.ColorTheme.fontDark, Uti.ColorTheme.lightFocusBrighter, Uti.ColorTheme.fontDark);
-            Uti.Methods.SetupInputDataType(tbDefaultValue, () => { return Uti.Methods.ConvertToDataType(cbDatatype.Text); }, (isOkay) => { GetThisParamData().defaultValue = tbDefaultValue.Text; });
+            Uti.Methods.SetupInputDataType(
+                controlInput:   tbDefaultValue, 
+                GetDataType:    () => { return Uti.Methods.ConvertToDataType(cbDatatype.Text); }, 
+                CallbackIsOkay: (isOkay) => { if (isOkay) OnDefaultValueChanged(tbDefaultValue); });
             panDefaultValue.Controls.Add(tbDefaultValue);
 
             ComboBox cbDefaultValue = Uti.MakeComponents.MakeComboBoxRegular(new List<string>(), flowParamContainer.BackColor, defaultValue);
-            Uti.Methods.SetupInputDataType(cbDefaultValue, () => { return Uti.Methods.ConvertToDataType(cbDatatype.Text); }, (isOkay) => { GetThisParamData().defaultValue = cbDefaultValue.Text; }, () => { return Uti.Methods.ConvertToListString(cbDefaultValue.Items); });
+            Uti.Methods.SetupInputDataType(
+                controlInput:   cbDefaultValue,
+                GetDataType:    () => { return Uti.Methods.ConvertToDataType(cbDatatype.Text); },
+                CallbackIsOkay: (isOkay) => { if (isOkay) OnDefaultValueChanged(cbDefaultValue); }, 
+                GetRefList:     () => { return Uti.Methods.ConvertToListString(cbDefaultValue.Items); });
             panDefaultValue.Controls.Add(cbDefaultValue);
             flowParamMain.Controls.Add(panDefaultValue);
+
+            void OnDefaultValueChanged(Control _con)
+            {
+                GetThisParamData().defaultValue = _con.Text;
+                UpdateTemplateCBManage(tbName.Text, GetThisParamData()); // Recreate the template input
+            }
             #endregion
 
             #region CB UI Control Type
@@ -467,6 +482,7 @@ namespace ChatWeaverApp.TabHome
                 if (cbUIControl.Items.Contains(cbUIControl.Text))
                 {
                     GetThisParamData().uiControl = cbUIControl.Text;
+                    UpdateTemplateCBManage(tbName.Text, GetThisParamData()); // Recreate the template input
                 }
                 else
                 {
@@ -518,6 +534,7 @@ namespace ChatWeaverApp.TabHome
 
                         cbUIControl.Items.Clear();
                         cbUIControl.Items.AddRange(ChatWeaverSystem.System.UIControls.ToArray());
+                        cbUIControl.SelectedIndex = 0;
                         GetThisParamData().uiControl = ChatWeaverSystem.System.UIControls[0];
 
                         #endregion
@@ -539,6 +556,7 @@ namespace ChatWeaverApp.TabHome
                         // Reset UI control list
                         cbUIControl.Items.Clear();
                         cbUIControl.Items.AddRange(ChatWeaverSystem.System.UIControlsEnum.ToArray());
+                        cbUIControl.SelectedIndex = 0;
                         GetThisParamData().uiControl = ChatWeaverSystem.System.UIControlsEnum[0];
                         #endregion
                     }
@@ -551,6 +569,8 @@ namespace ChatWeaverApp.TabHome
                     GetThisParamData().dataType = cbDatatype.Text;
 
                     oldDataType = cbDatatype.Text; // to prevent double execution since this method is called in SelectedIndexChanged and Validated
+
+                    UpdateTemplateCBManage(tbName.Text, GetThisParamData()); // Recreate the template input
                 }
                 else
                 {
@@ -568,9 +588,21 @@ namespace ChatWeaverApp.TabHome
             panDisplayIcon.Margin = new Padding(0, 0, 0, 0);
 
             ComboBox cbDisplayIcon = Uti.MakeComponents.MakeComboBoxRegular(ChatWeaverSystem.System.DisplayIcons, flowParamContainer.BackColor, displayIcon); // Default: <noIcon>
-            cbDisplayIcon.Validated += (sender, e) => { GetThisParamData().icon = cbDisplayIcon.Text; };
+            string oldIcon = displayIcon;
+            cbDisplayIcon.SelectedIndexChanged += (sender, e) => { UpdateIcon(); };
+            cbDisplayIcon.Validated += (sender, e) => { 
+                if(oldIcon != cbDisplayIcon.Text){ UpdateIcon(); }
+                else{return;}
+            };
             panDisplayIcon.Controls.Add(cbDisplayIcon);
             flowParamMain.Controls.Add(panDisplayIcon);
+
+            void UpdateIcon()
+            {
+                GetThisParamData().icon = cbDisplayIcon.Text;
+                UpdateTemplateCBManage(tbName.Text, GetThisParamData());
+                oldIcon = cbDisplayIcon.Text;
+            }
 
             #endregion
 
@@ -681,22 +713,33 @@ namespace ChatWeaverApp.TabHome
             #endregion
 
             #region More Icon
+            bool isContextOpen = false;
             Button butMore = Uti.MakeComponents.MakeButtonIcon("⚙️", flowParamContainer.BackColor, Uti.ColorTheme.more, Uti.ColorTheme.moreDark);
             butMore.MouseClick += (sender, e) =>
             {
-                DialogForms.ContextSimple contextSimple = new DialogForms.ContextSimple(true, () => { ShowInsight(); });
-                contextSimple.MakeMenuClick("Delete", () => { DeleteParam(); }, true, "🔥", Uti.ColorTheme.red);
-                contextSimple.MakeMenuClick("Delete", () => { DeleteParam(); }, true, "🔥", Uti.ColorTheme.red);
-                contextSimple.MakeMenuClick("Delete", () => { DeleteParam(); }, true, "🔥", Uti.ColorTheme.red);
-                contextSimple.MakeMenuClick("Delete", () => { DeleteParam(); }, true, "🔥", Uti.ColorTheme.red);
+                DialogForms.ContextSimple contextSimple = new DialogForms.ContextSimple();
+                isContextOpen = !isContextOpen;
+                if (isContextOpen)
+                {
+                    contextSimple = new DialogForms.ContextSimple(true, () => { ShowInsight(); });
+                    contextSimple.MakeMenuClick("Delete", () => { DeleteParam(); }, true, "🔥", Uti.ColorTheme.red);
+                    contextSimple.Deactivate += (_sender, _e) => { isContextOpen = false; contextSimple.Dispose(); };
 
-                contextSimple.Show();
+                    Point loc = new Point(flowParamContainer.PointToScreen(butMore.Location).X + butMore.Width, flowParamContainer.PointToScreen(butMore.Location).Y);
+                    contextSimple.Location = loc;
+                    contextSimple.Show();
+                }
+                else
+                {
+                    contextSimple.Dispose();
+                }
+
 
                 void DeleteParam()
                 {
                     ParameterData deleteParam = GetThisParamData();
                     RemoveItemTemplateCBManage(deleteParam);
-                    flowParams.Remove(flowParam);
+                    //flowParams.Remove(flowParam); //QUICK: fix? Don't remove?
                     flowParamContainer.Dispose();
                     Master.projectData.parameters.Remove(deleteParam);
                 }
@@ -733,9 +776,22 @@ namespace ChatWeaverApp.TabHome
                 return flowParams[flowParams.IndexOf(flowParam)].index;
             }
 
-            ParameterData GetThisParamData()
+            ParameterData GetThisParamData(bool useOldName = false)
             {
-                return Master.projectData.parameters[flowParams[flowParams.IndexOf(flowParam)].index];
+                try
+                {
+                    //labTitleAddNewParam.Text = flowParam.index.ToString();
+                    //return Master.projectData.parameters[flowParams[flowParams.IndexOf(flowParam)].index];
+                    int index = Master.GetParamAllNames().IndexOf(useOldName ? oldParamName : tbName.Text) ;
+                    return Master.projectData.parameters[index];
+                }
+                catch (System.ArgumentOutOfRangeException)
+                {
+                    string b = Master.GetParamAllNames()[0];
+                    int a = Master.GetParamAllNames().IndexOf(oldParamName);
+                    throw null;
+                }
+
             }
 
         }
@@ -1018,112 +1074,96 @@ namespace ChatWeaverApp.TabHome
             if (param.linkedToPub)
             {
                 cbManageTempLeft.Items.Remove(param.name);
+
+                // If this cb has the deleted param name
                 if (cbManageTempLeft.Text == param.name)
                 {
                     cbManageTempLeft.Text = "";
-                    //TODO: remove control ui
+                    labManageTempLeft.Text = "";
+                    picTemp.Image = null;
                 }
             }
             foreach (ComboBox cb in templateBottomCBs)
             {
                 cb.Items.Remove(param.name);
-                if (cb.Text == param.name)
+
+                // If this cb has the deleted param name
+                if (cb.Text == param.name || cb.Text == "")
                 {
+                    int index = templateBottomCBs.IndexOf(cb);
+                    templateInputsBottom[index].control.Dispose();
+                    templateInputsBottom.RemoveAt(index);
+                    templateBottomCBs.Remove(cb);
                     cb.Dispose();
-                    //TODO: remove control ui
+                    break;
                 }
             }
             foreach (ComboBox cb in templateRightCBs)
             {
                 cb.Items.Remove(param.name);
-                if (cb.Text == param.name)
+
+                // If this cb has the deleted param name
+                if (cb.Text == param.name || cb.Text == "")
                 {
+                    int index = templateRightCBs.IndexOf(cb);
+                    templateInputsRight[index].control.Dispose();
+                    templateInputsRight.RemoveAt(index);
+                    templateRightCBs.Remove(cb);
                     cb.Dispose();
-                    //TODO: remove control ui
+                    break;
                 }
             }
         }
 
-        private void RenameItemTemplateCBManage(string oldName, string newName, bool isLinked)
+        private void UpdateTemplateCBManage(string name, ParameterData paramData, string newName = "")
         {
-            if (isLinked)
+            newName = newName == "" ? name : newName; // Check whether there's a new name
+            if (paramData.linkedToPub)
             {
-                cbManageTempLeft.Items[cbManageTempLeft.Items.IndexOf(oldName)] = newName;
-                if(cbManageTempLeft.Text == oldName)
+                cbManageTempLeft.Items[cbManageTempLeft.Items.IndexOf(name)] = newName;
+                if(cbManageTempLeft.Text == name)
                 {
                     cbManageTempLeft.Text = newName;
+                    labManageTempLeft.Text = paramData.defaultValue;
                 }
             }
             foreach (ComboBox cb in templateBottomCBs)
             {
-                cb.Items[cb.Items.IndexOf(oldName)] = newName;
-                if(cb.Text == oldName)
+                if(cb.Text == name)
                 {
+                    cb.Items[cb.Items.IndexOf(name)] = newName;
                     cb.Text = newName;
+                    int index = templateBottomCBs.IndexOf(cb);
+                    int indexInFlow = flowTempBottom.Controls.IndexOf(templateInputsBottom[index].control);
+                    templateInputsBottom[index].control.Dispose();
+                    templateInputsBottom[index].icon = paramData.icon;
+                    Control newControl = MakeTemplateInput(paramData.uiControl, RightOrBottom.Bottom, paramData, cb);
+                    templateInputsBottom[index].control = newControl;
+                    flowTempBottom.Controls.SetChildIndex(newControl, indexInFlow);
+                }
+                else
+                {
+                    cb.Items[cb.Items.IndexOf(name)] = newName;
                 }
             }
             foreach (ComboBox cb in templateRightCBs)
             {
-                cb.Items[cb.Items.IndexOf(oldName)] = newName;
-            }
-        }
-
-        /// <summary>
-        /// Template Input Control is updated by checking the text of its control box Manage; <br></br>
-        /// Template Input does not contain any data name, but holds reference only to its CB Manage
-        /// </summary>
-        /// <param name="name">parameter name</param>
-        private void UpdateTemplateInput(string name)
-        {
-            for (int i = 0; i < templateInputsRight.Count; i++)
-            {
-                if(templateInputsRight[i].cbManage.Text == name)
+                if (cb.Text == name)
                 {
-                    ParameterData paramData = Master.projectData.parameters[Master.GetParamAllNames().IndexOf(name)];
-
-                    templateInputsRight[i].icon = paramData.icon;
-                    //ChangeControlUI(paramData, i, templateInputsRight[i].rob); //TODO: add combo box
-                    templateInputsRight[i].control.Text = paramData.defaultValue;
-
-                    break;
-                }
-            }
-
-            for (int i = 0; i < templateInputsBottom.Count; i++)
-            {
-                if (templateInputsBottom[i].cbManage.Text == name)
-                {
-                    ParameterData paramData = Master.projectData.parameters[Master.GetParamAllNames().IndexOf(name)];
-
-                    templateInputsBottom[i].icon = paramData.icon;
-                    //ChangeControlUI(paramData, i, templateInputsBottom[i].rob); //TODO: add combo box
-                    templateInputsBottom[i].control.Text = paramData.defaultValue;
-
-                    break;
-                }
-            }
-
-            void ChangeControlUI(ParameterData paramData, int index, RightOrBottom rob, ComboBox cb)
-            {
-                if (paramData.uiControl == "Text Box" && templateInputsRight[index].control is TextBox) return;
-                else if(paramData.uiControl == "Combo Box" && templateInputsRight[index].control is ComboBox) return;
-                else if(paramData.uiControl == "Label" && templateInputsRight[index].control is Label) return;
-
-                templateInputsRight[index].control.Dispose();
-
-                Control newControl = MakeTemplateInput(paramData.uiControl, rob, paramData, cb); // TODO: change within the list
-
-                if (rob == RightOrBottom.Right)
-                {
+                    cb.Items[cb.Items.IndexOf(name)] = newName;
+                    cb.Text = newName;
+                    int index = templateRightCBs.IndexOf(cb);
+                    int indexInFlow = flowTempRight.Controls.IndexOf(templateInputsRight[index].control);
+                    templateInputsRight[index].control.Dispose();
+                    templateInputsRight[index].icon = paramData.icon;
+                    Control newControl = MakeTemplateInput(paramData.uiControl, RightOrBottom.Right, paramData, cb);
                     templateInputsRight[index].control = newControl;
-                    flowTempRight.Controls.Add(newControl);
+                    flowTempRight.Controls.SetChildIndex(newControl, indexInFlow);
                 }
-                else if (rob == RightOrBottom.Bottom)
+                else
                 {
-                    templateInputsBottom[index].control = newControl;
-                    flowTempBottom.Controls.Add(newControl);
+                    cb.Items[cb.Items.IndexOf(name)] = newName;
                 }
-
             }
         }
 
@@ -1150,18 +1190,26 @@ namespace ChatWeaverApp.TabHome
 
         private void MakeTemplateCBManage(FlowLayoutPanel parent, RightOrBottom rightOrBottom)
         {
-            #region Give name
+            #region Select a name that hasn't been selected
             ParameterData unselectedParam = Master.projectData.parameters[0];
             List<ComboBox> combinedCBs = new List<ComboBox>();
             combinedCBs.AddRange(templateRightCBs);
             combinedCBs.AddRange(templateBottomCBs);
-            foreach (ComboBox item in combinedCBs)
+            List<string> allNames = Master.GetParamAllNames().ToList();
+            for ( int i = allNames.Count-1; i>=0; i--)
             {
-                foreach (ParameterData data in Master.projectData.parameters)
+                foreach (ComboBox item in combinedCBs)
                 {
-                    if (item.Text != data.name) unselectedParam = data;
+                    if (item.Text == allNames[i])
+                    {
+                        allNames.RemoveAt(i);
+                        break;
+                    }
                 }
             }
+
+            // one of the first data that hasn't been selected
+            unselectedParam = Master.projectData.parameters[Master.GetParamAllNames().IndexOf(allNames[0])]; 
             #endregion
 
             #region Instantiate
